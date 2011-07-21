@@ -1,0 +1,7 @@
+Description:
+    The comatose generator creates a migration for the comatose model and adds routes.
+
+    The generator creates a migration class in db/migrate.
+
+Example:
+    ./script/generate comatose

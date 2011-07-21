@@ -1,7 +1,7 @@
 #
 # RDOC
 #
-TextFilters.define :rdoc, "RDoc" do
+Comatose::TextFilters.define :rdoc, "RDoc" do
   require 'rdoc/markup/simple_markup'
   require 'rdoc/markup/simple_markup/to_html'
 

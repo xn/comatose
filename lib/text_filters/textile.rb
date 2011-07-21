@@ -1,7 +1,7 @@
 #
 # TEXTILE
 #
-TextFilters.define :textile, "Textile" do
+Comatose::TextFilters.define :textile, "Textile" do
   require 'redcloth'
   
   def render_text(text)

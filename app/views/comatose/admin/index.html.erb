@@ -1,0 +1,34 @@
+<div class="action">
+  <%= link_to 'Clear Page Cache', expire_comatose_pages_path %>
+  <% if Comatose.config.allow_import_export %>
+      <%= link_to 'Import', '#', :id => 'import_link2', :onclick => "$('import_form').setStyle({display: 'inline'}); return false;" %>
+      <%= link_to 'Export', export_comatose_pages_path %>
+      <div id="import_form" style="display: none;">
+        <% form_tag(import_comatose_pages_path, :multipart => true) do %>
+            <%= file_field_tag 'import_file' %>
+            <%= submit_tag 'Upload and Import' %>
+            <a href="#" onclick="$('import_form').hide(); return false;">Cancel</a>
+        <% end %>
+      </div>
+  <% end %>
+</div>
+
+<div class="action">
+  <%= link_to 'New Page', new_comatose_page_path %>
+</div>
+
+<h1>
+  Page List
+  <%= image_tag 'comatose/spinner.gif', :id=>'spinner', :align=>'absmiddle', :style=>'display:none;' %>
+</h1>
+
+
+<ul class="page-list root">
+  <% @root_pages.each do |page| %>
+      <%= render :partial => 'page_list_item', :locals => { :page => page, :level => 1 } %>
+  <% end %>
+</ul>
+
+<div id="status"></div>
+
+<%= javascript_tag "ComatoseList.init()" %>

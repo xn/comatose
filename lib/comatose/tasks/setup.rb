@@ -1,6 +1,3 @@
-require 'rake'
-require 'rake/tasklib'
-
 namespace :comatose do
   #
   # Setup Task...
@@ -9,15 +6,48 @@ namespace :comatose do
     
     desc "If the installation didn't add the images correctly, use this task"
     task :copy_images do
-      plugin_dir = File.join(File.dirname(__FILE__), '..')
-      unless FileTest.exist? File.join(RAILS_ROOT, 'public', 'images', 'comatose')
-        FileUtils.mkdir( File.join(RAILS_ROOT, 'public', 'images', 'comatose') )
+      sources         = File.join(Comatose.gem_root, 'public/images', '*.gif')
+      destination_dir = File.join(Rails.root.to_s, 'public/images/comatose')
+      Comatose.logger.debug "[**Comatose**]: sources: #{sources}"
+      puts "[**Comatose**]: sources: #{sources}"
+      Comatose.logger.debug "[**Comatose**]: destination dir: #{destination_dir}"
+      puts "[**Comatose**]: destination dir: #{destination_dir}"
+      unless FileTest.exist? destination_dir
+        FileUtils.mkdir destination_dir
       end
-      FileUtils.cp( 
-        Dir[File.join(plugin_dir, 'resources', 'public', 'images', '*.gif')], 
-        File.join(RAILS_ROOT, 'public', 'images', 'comatose'),
-        :verbose => true
-      )
+      FileUtils.cp(Dir.glob(sources), destination_dir, :verbose => true)
+      puts "Finished."
+    end
+
+
+    desc "If the installation didn't add the stylesheets correctly, use this task"
+    task :copy_stylesheets do
+      sources         = File.join(Comatose.gem_root, 'public/stylesheets', '*.css')
+      destination_dir = File.join(Rails.root.to_s, 'public/stylesheets/comatose')
+      Comatose.logger.debug "[**Comatose**]: sources: #{sources}"
+      puts "[**Comatose**]: sources: #{sources}"
+      Comatose.logger.debug "[**Comatose**]: destination dir: #{destination_dir}"
+      puts "[**Comatose**]: destination dir: #{destination_dir}"
+      unless FileTest.exist? destination_dir
+        FileUtils.mkdir destination_dir
+      end
+      FileUtils.cp(Dir.glob(sources), destination_dir, :verbose => true)
+      puts "Finished."
+    end
+
+
+    desc "If the installation didn't add the javascripts correctly, use this task"
+    task :copy_javascripts do
+      sources         = File.join(Comatose.gem_root, 'public/javascripts', '*.js')
+      destination_dir = File.join(Rails.root.to_s, 'public/javascripts/comatose')
+      Comatose.logger.debug "[**Comatose**]: sources: #{sources}"
+      puts "[**Comatose**]: sources: #{sources}"
+      Comatose.logger.debug "[**Comatose**]: destination dir: #{destination_dir}"
+      puts "[**Comatose**]: destination dir: #{destination_dir}"
+      unless FileTest.exist? destination_dir
+        FileUtils.mkdir destination_dir
+      end
+      FileUtils.cp(Dir.glob(sources), destination_dir, :verbose => true)
       puts "Finished."
     end
     
@@ -46,7 +76,7 @@ namespace :comatose do
       move 'public/javscripts/comatose.js public/javscripts/comatose_admin.js' 
       move 'public/stylesheets/comatose.css public/stylesheets/comatose_admin.css' 
       move 'app/views/comatose app/views/comatose_admin' 
-      delete 'app/views/layouts/comatose_content.html.erb' 
+      delete 'app/views/layouts/base.html.erb'
     end
   end
 end

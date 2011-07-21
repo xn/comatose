@@ -1,7 +1,7 @@
 #
 # MARKDOWN + SMARTYPANTS
 #
-TextFilters.define :markdown_smartypants, "Markdown + SmartyPants" do
+Comatose::TextFilters.define :markdown_smartypants, "Markdown + SmartyPants" do
   require 'bluecloth'
   require 'rubypants'
   

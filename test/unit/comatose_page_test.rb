@@ -5,7 +5,7 @@ class ComatosePageTest < Test::Unit::TestCase
   fixtures :comatose_pages
 
   should "create page" do
-    assert_difference ComatosePage, :count do
+    assert_difference Page, :count do
       page = create_page :title=>'New Page Name'
       assert !page.new_record?, "#{page.errors.full_messages.to_sentence}"
     end
@@ -25,7 +25,7 @@ class ComatosePageTest < Test::Unit::TestCase
   end
   
   should "not allow creation of page when missing a title" do
-    assert_no_difference ComatosePage, :count do
+    assert_no_difference Page, :count do
       p = create_page(:title => nil)
       assert p.errors.on(:title)
     end
@@ -114,7 +114,7 @@ class ComatosePageTest < Test::Unit::TestCase
     end
     
     def root_page
-      ComatosePage.root
+      Page.root
     end
     
     def faq_page

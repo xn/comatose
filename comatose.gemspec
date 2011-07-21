@@ -1,113 +1,69 @@
-# Generated on Tue May 20 20:13:12 -0500 2008
+# -*- encoding: utf-8 -*-
+
 Gem::Specification.new do |s|
-  s.name = "comatose"
-  s.version = "2.0.5"
-  s.date = "2008-10-31" # 2008-05-20
-  s.summary = "Micro CMS designed for being embedded into existing Rails applications"
-  s.email = "matt@elucidata.net"
-  s.rubyforge_project = 'comatose'
-  s.homepage = "http://comatose.rubyforge.org"
-  s.description = "Comatose is a micro CMS designed for being embedded into existing Rails applications."
-  s.has_rdoc = true
-  s.authors = ["M@ McCray"]
-  s.bindir = 'bin'
-  s.executables = ['comatose']
+  s.name = %q{comatose}
+  s.version = "3.0.0"
+
+  s.required_rubygems_version = Gem::Requirement.new(">= 1.8.4") if s.respond_to? :required_rubygems_version=
+  s.authors = [%q{Bryan Taylor, Matt McCray, Michael Kovacs}]
+  s.date = %q{2011-07-21}
+  s.description = %q{Web Content Management in Rails 3.}
+  s.email = %q{btaylor39@csc.com}
+  s.extra_rdoc_files = [%q{CHANGELOG}, %q{LICENSE}, %q{README}, %q{README.markdown}, %q{lib/comatose.rb}, %q{lib/comatose/configuration.rb}, %q{lib/comatose/drop.rb}, %q{lib/comatose/engine.rb}, %q{lib/comatose/locale_constraint.rb}, %q{lib/comatose/logger.rb}, %q{lib/comatose/page_wrapper.rb}, %q{lib/comatose/processing_context.rb}, %q{lib/comatose/routes.rb}, %q{lib/comatose/tasks/admin.rb}, %q{lib/comatose/tasks/data.rb}, %q{lib/comatose/tasks/setup.rb}, %q{lib/comatose/text_filters.rb}, %q{lib/comatose/version.rb}, %q{lib/generators/comatose/USAGE}, %q{lib/generators/comatose/comatose_generator.rb}, %q{lib/generators/comatose/templates/comatose.rb}, %q{lib/generators/comatose/templates/migration.erb}, %q{lib/generators/comatose/templates/seeds.erb}, %q{lib/support/class_options.rb}, %q{lib/support/inline_rendering.rb}, %q{lib/support/route_mapper.rb}, %q{lib/tasks/comatose.rake}, %q{lib/text_filters/markdown.rb}, %q{lib/text_filters/markdown_smartypants.rb}, %q{lib/text_filters/none.rb}, %q{lib/text_filters/rdoc.rb}, %q{lib/text_filters/simple.rb}, %q{lib/text_filters/textile.rb}]
+  s.files = [%q{CHANGELOG}, %q{Gemfile}, %q{Gemfile.lock}, %q{INSTALL}, %q{LICENSE}, %q{Manifest}, %q{README}, %q{README.markdown}, %q{Rakefile}, %q{SPECS}, %q{about.yml}, %q{app/controllers/application_controller.rb}, %q{app/controllers/comatose/admin_controller.rb}, %q{app/controllers/comatose/application_controller.rb}, %q{app/controllers/comatose/base_controller.rb}, %q{app/helpers/application_helper.rb}, %q{app/helpers/comatose/admin_helper.rb}, %q{app/helpers/comatose/application_helper.rb}, %q{app/helpers/comatose/base_helper.rb}, %q{app/models/comatose/page.rb}, %q{app/views/comatose/admin/_form.html.erb}, %q{app/views/comatose/admin/_page_list_item.html.erb}, %q{app/views/comatose/admin/delete.html.erb}, %q{app/views/comatose/admin/edit.html.erb}, %q{app/views/comatose/admin/index.html.erb}, %q{app/views/comatose/admin/new.html.erb}, %q{app/views/comatose/admin/reorder.html.erb}, %q{app/views/comatose/admin/versions.html.erb}, %q{app/views/layouts/application.html.erb}, %q{app/views/layouts/comatose/admin.html.erb}, %q{app/views/layouts/comatose/base.html.erb}, %q{comatose.gemspec}, %q{config.ru}, %q{config/environment.rb}, %q{config/environments/development.rb}, %q{config/environments/production.rb}, %q{config/environments/test.rb}, %q{config/locales/en.yml}, %q{db/seeds.rb}, %q{install.rb}, %q{lib/comatose.rb}, %q{lib/comatose/configuration.rb}, %q{lib/comatose/drop.rb}, %q{lib/comatose/engine.rb}, %q{lib/comatose/locale_constraint.rb}, %q{lib/comatose/logger.rb}, %q{lib/comatose/page_wrapper.rb}, %q{lib/comatose/processing_context.rb}, %q{lib/comatose/routes.rb}, %q{lib/comatose/tasks/admin.rb}, %q{lib/comatose/tasks/data.rb}, %q{lib/comatose/tasks/setup.rb}, %q{lib/comatose/text_filters.rb}, %q{lib/comatose/version.rb}, %q{lib/generators/comatose/USAGE}, %q{lib/generators/comatose/comatose_generator.rb}, %q{lib/generators/comatose/templates/comatose.rb}, %q{lib/generators/comatose/templates/migration.erb}, %q{lib/generators/comatose/templates/seeds.erb}, %q{lib/support/class_options.rb}, %q{lib/support/inline_rendering.rb}, %q{lib/support/route_mapper.rb}, %q{lib/tasks/comatose.rake}, %q{lib/text_filters/markdown.rb}, %q{lib/text_filters/markdown_smartypants.rb}, %q{lib/text_filters/none.rb}, %q{lib/text_filters/rdoc.rb}, %q{lib/text_filters/simple.rb}, %q{lib/text_filters/textile.rb}, %q{public/404.html}, %q{public/422.html}, %q{public/500.html}, %q{public/favicon.ico}, %q{public/images/collapsed.gif}, %q{public/images/expanded.gif}, %q{public/images/no-children.gif}, %q{public/images/page.gif}, %q{public/images/rails.png}, %q{public/images/spinner.gif}, %q{public/images/title-hover-bg.gif}, %q{public/javascripts/application.js}, %q{public/javascripts/comatose_admin.js}, %q{public/javascripts/controls.js}, %q{public/javascripts/dragdrop.js}, %q{public/javascripts/effects.js}, %q{public/javascripts/prototype.js}, %q{public/javascripts/rails.js}, %q{public/robots.txt}, %q{public/stylesheets/comatose_admin.css}, %q{spec/controllers/comatose/base_controller_spec.rb}, %q{spec/controllers/foos_controller_spec.rb}, %q{spec/helpers/foos_helper_spec.rb}, %q{spec/routing/base_routing_spec.rb}, %q{spec/spec_helper.rb}, %q{test/behaviors.rb}, %q{test/fixtures/comatose_pages.yml}, %q{test/functional/comatose_admin_controller_test.rb}, %q{test/functional/comatose_controller_test.rb}, %q{test/integration/comatose_routing_test.rb}, %q{test/javascripts/test.html}, %q{test/javascripts/test_runner.js}, %q{test/old_test_helper.rb}, %q{test/performance/browsing_test.rb}, %q{test/test_helper.rb}, %q{test/unit/class_options_test.rb}, %q{test/unit/comatose_page_test.rb}, %q{test/unit/processing_context_test.rb}, %q{test/unit/text_filters_test.rb}, %q{views/layouts/comatose_admin.html.erb}, %q{views/layouts/comatose_admin_customize.html.erb}]
+  s.homepage = %q{http://comatose.github.com/comatose/}
+  s.post_install_message = %q{
+======================
+ Welcome to Comatose!
+======================
+
+Be sure and install the acts_as_tree and acts_as_list plugins!
+
+From here you'll want to run:
+
+  $ ./script/generate comatose_migration
   
-  s.files = ["CHANGELOG",
-             "INSTALL",
-             "LICENSE",
-             "MANIFEST",
-             "README.markdown",
-             "Rakefile",
-             "SPECS",
-             "about.yml",
-             "bin/comatose",
-             "comatose.gemspec",
-             "generators/comatose_migration/comatose_migration_generator.rb",
-             "generators/comatose_migration/templates/migration.rb",
-             "generators/comatose_migration/templates/v4_upgrade.rb",
-             "generators/comatose_migration/templates/v6_upgrade.rb",
-             "generators/comatose_migration/templates/v7_upgrade.rb",
-             "generators/comatose_migration/USAGE",
-             "init.rb",
-             "install.rb",
-             "lib/acts_as_versioned.rb",
-             "lib/comatose/comatose_drop.rb",
-             "lib/comatose/configuration.rb",
-             "lib/comatose/page_wrapper.rb",
-             "lib/comatose/processing_context.rb",
-             "lib/comatose/tasks/admin.rb",
-             "lib/comatose/tasks/data.rb",
-             "lib/comatose/tasks/setup.rb",
-             "lib/comatose/version.rb",
-             "lib/comatose.rb",
-             "lib/comatose_admin_controller.rb",
-             "lib/comatose_admin_helper.rb",
-             "lib/comatose_controller.rb",
-             "lib/comatose_helper.rb",
-             "lib/comatose_page.rb",
-             "lib/liquid/block.rb",
-             "lib/liquid/context.rb",
-             "lib/liquid/document.rb",
-             "lib/liquid/drop.rb",
-             "lib/liquid/errors.rb",
-             "lib/liquid/extensions.rb",
-             "lib/liquid/file_system.rb",
-             "lib/liquid/htmltags.rb",
-             "lib/liquid/standardfilters.rb",
-             "lib/liquid/standardtags.rb",
-             "lib/liquid/strainer.rb",
-             "lib/liquid/tag.rb",
-             "lib/liquid/template.rb",
-             "lib/liquid/variable.rb",
-             "lib/liquid.rb",
-             "lib/redcloth.rb",
-             "lib/support/class_options.rb",
-             "lib/support/inline_rendering.rb",
-             "lib/support/route_mapper.rb",
-             "lib/text_filters/markdown.rb",
-             "lib/text_filters/markdown_smartypants.rb",
-             "lib/text_filters/none.rb",
-             "lib/text_filters/rdoc.rb",
-             "lib/text_filters/simple.rb",
-             "lib/text_filters/textile.rb",
-             "lib/text_filters.rb",
-             "rails/init.rb",
-             "resources/layouts/comatose_admin_template.html.erb",
-             "resources/public/images/collapsed.gif",
-             "resources/public/images/expanded.gif",
-             "resources/public/images/no-children.gif",
-             "resources/public/images/page.gif",
-             "resources/public/images/spinner.gif",
-             "resources/public/images/title-hover-bg.gif",
-             "resources/public/javascripts/comatose_admin.js",
-             "resources/public/stylesheets/comatose_admin.css",
-             "tasks/comatose.rake",
-             "views/comatose_admin/_form.html.erb",
-             "views/comatose_admin/_page_list_item.html.erb",
-             "views/comatose_admin/delete.html.erb",
-             "views/comatose_admin/edit.html.erb",
-             "views/comatose_admin/index.html.erb",
-             "views/comatose_admin/new.html.erb",
-             "views/comatose_admin/reorder.html.erb",
-             "views/comatose_admin/versions.html.erb",
-             "views/layouts/comatose_admin.html.erb",
-             "views/layouts/comatose_admin_customize.html.erb",
-             "views/layouts/comatose_content.html.erb"]
-  
-  s.test_files = ["test/behaviors.rb",
-                  "test/fixtures/comatose_pages.yml",
-                  "test/functional/comatose_admin_controller_test.rb",
-                  "test/functional/comatose_controller_test.rb",
-                  "test/javascripts/test.html",
-                  "test/javascripts/test_runner.js",
-                  "test/test_helper.rb",
-                  "test/unit/class_options_test.rb",
-                  "test/unit/comatose_page_test.rb",
-                  "test/unit/processing_context_test.rb",
-                  "test/unit/text_filters_test.rb"]
-  
-  s.rdoc_options = ["--main", "README.markdown"]
-  s.extra_rdoc_files = %w(README.markdown CHANGELOG SPECS LICENSE)
-  #s.add_dependency("mime-types", ["> 0.0.0"])
+NOTE: The generator will add the default comatose routes to the top of your routes.rb file. You'll want to move `map.comatose_root ''` to the bottom of your routes block.
+
+When that's finished, run:
+
+  $ rake db:migrate
+
+That's it for the Comatose setup! 
+
+Be sure to read the README file, and the 'Getting Started' guide. They are located at vendor/plugins/comatose/README and http://comatose.rubyforge.org/getting-started-guide respectively.
+}
+  s.rdoc_options = [%q{--line-numbers}, %q{--inline-source}, %q{--title}, %q{Comatose}, %q{--main}, %q{README}]
+  s.require_paths = [%q{lib}]
+  s.rubyforge_project = %q{comatose}
+  s.rubygems_version = %q{1.8.5}
+  s.summary = %q{Micro CMS - resurrected for Rails 3}
+  s.test_files = [%q{test/functional/comatose_admin_controller_test.rb}, %q{test/functional/comatose_controller_test.rb}, %q{test/integration/comatose_routing_test.rb}, %q{test/performance/browsing_test.rb}, %q{test/test_helper.rb}, %q{test/unit/class_options_test.rb}, %q{test/unit/comatose_page_test.rb}, %q{test/unit/processing_context_test.rb}, %q{test/unit/text_filters_test.rb}]
+
+  if s.respond_to? :specification_version then
+    s.specification_version = 3
+
+    if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
+      s.add_runtime_dependency(%q<rake>, [">= 0.9.2"])
+      s.add_runtime_dependency(%q<rails>, [">= 3.0.9"])
+      s.add_runtime_dependency(%q<acts_as_versioned>, [">= 0"])
+      s.add_runtime_dependency(%q<acts_as_list-rails3>, [">= 0"])
+      s.add_runtime_dependency(%q<acts_as_tree_rails3>, [">= 0"])
+      s.add_development_dependency(%q<term-ansicolor>, [">= 0"])
+    else
+      s.add_dependency(%q<rake>, [">= 0.9.2"])
+      s.add_dependency(%q<rails>, [">= 3.0.9"])
+      s.add_dependency(%q<acts_as_versioned>, [">= 0"])
+      s.add_dependency(%q<acts_as_list-rails3>, [">= 0"])
+      s.add_dependency(%q<acts_as_tree_rails3>, [">= 0"])
+      s.add_dependency(%q<term-ansicolor>, [">= 0"])
+    end
+  else
+    s.add_dependency(%q<rake>, [">= 0.9.2"])
+    s.add_dependency(%q<rails>, [">= 3.0.9"])
+    s.add_dependency(%q<acts_as_versioned>, [">= 0"])
+    s.add_dependency(%q<acts_as_list-rails3>, [">= 0"])
+    s.add_dependency(%q<acts_as_tree_rails3>, [">= 0"])
+    s.add_dependency(%q<term-ansicolor>, [">= 0"])
+  end
 end

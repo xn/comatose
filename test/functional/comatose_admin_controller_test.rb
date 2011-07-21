@@ -4,7 +4,7 @@ require 'comatose_admin_helper'
 require 'text_filters'
 
 # Re-raise errors caught by the controller.
-class ComatoseAdminController
+class AdminController
   def rescue_action(e) raise e end
 end
 
@@ -13,7 +13,7 @@ class ComatoseAdminControllerTest < Test::Unit::TestCase
   fixtures :comatose_pages
     
   def setup
-    @controller = ComatoseAdminController.new
+    @controller = AdminController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
     Comatose.config.admin_get_author = nil
@@ -101,13 +101,13 @@ class ComatoseAdminControllerTest < Test::Unit::TestCase
   end
   
   should "set runtime mode" do
-    assert_equal :plugin, ComatoseAdminController.runtime_mode
+    assert_equal :plugin, AdminController.runtime_mode
     comatose_admin_view_path = File.expand_path(File.join( File.dirname(__FILE__), '..', '..', 'views'))
 
-    if ComatoseAdminController.respond_to?(:template_root)
-      assert_equal comatose_admin_view_path, ComatoseAdminController.template_root
+    if AdminController.respond_to?(:template_root)
+      assert_equal comatose_admin_view_path, AdminController.template_root
     else
-      assert ComatoseAdminController.view_paths.include?(comatose_admin_view_path)
+      assert AdminController.view_paths.include?(comatose_admin_view_path)
     end
   end
 

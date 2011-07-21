@@ -50,7 +50,7 @@ module Comatose
       @authorization       = Proc.new { true }
       @admin_authorization = Proc.new { true }
       @admin_get_author    = Proc.new { request.env['REMOTE_ADDR'] }
-      @admin_get_root_page = Proc.new { ComatosePage.root }
+      @admin_get_root_page = Proc.new { Page.root }
       @after_setup         = Proc.new { true }
     end
     

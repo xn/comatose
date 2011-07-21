@@ -1,6 +1,3 @@
-require 'rake'
-require 'rake/tasklib'
-
 namespace :comatose do
   #
   # Data Migration Tasks
@@ -40,7 +37,7 @@ namespace :comatose do
       root = ENV['FROM'] || ''
       target = ENV['TO_FILE'] || 'db/comatose-pages.yml'
       # Nested hash of the page tree...
-      from = ComatosePage.find_by_path(root)
+      from = Page.find_by_path(root)
       if from
         data = page_to_hash( from ) 
         File.open(target, 'w') {|f| f.write data.to_yaml }
@@ -51,13 +48,13 @@ namespace :comatose do
       puts "Finished."
     end
 
-    desc "Loads page tree data FROM_FILE or db/comatose-pages.yml in to TO or ComatosePage.root"
+    desc "Loads page tree data FROM_FILE or db/comatose-pages.yml in to TO or Page.root"
     task :import do 
       require "#{RAILS_ROOT}/config/environment"
 
       src = ENV['FROM_FILE'] || 'db/comatose-pages.yml'
       root = ENV['TO'] || ''
-      target = (root == '') ? ComatosePage.root : ComatosePage.find_by_path(root)
+      target = (root == '') ? Page.root : Page.find_by_path(root)
       data = YAML::load( File.open(src) )
       #hash_to_page(data, target)
       if target

@@ -1,7 +1,7 @@
 #
 # MARKDOWN
 #
-TextFilters.define :markdown, "Markdown" do
+Comatose::TextFilters.define :markdown, "Markdown" do
   require 'bluecloth'
   
   def render_text(text)

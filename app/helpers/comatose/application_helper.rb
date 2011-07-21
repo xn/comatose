@@ -1,0 +1,2 @@
+module Comatose::ApplicationHelper
+end

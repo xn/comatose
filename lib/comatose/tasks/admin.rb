@@ -1,6 +1,3 @@
-require 'rake'
-require 'rake/tasklib'
-
 namespace :comatose do
   #
   # Customization Tasks
