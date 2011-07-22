@@ -6,7 +6,7 @@ namespace :comatose do
     
     desc "If the installation didn't add the images correctly, use this task"
     task :copy_images do
-      sources         = File.join(Comatose.gem_root, 'public/images', '*.gif')
+      sources         = File.join(Comatose.gem_root, 'public/images/comatose', '*.gif')
       destination_dir = File.join(Rails.root.to_s, 'public/images/comatose')
       Comatose.logger.debug "[**Comatose**]: sources: #{sources}"
       puts "[**Comatose**]: sources: #{sources}"
@@ -22,7 +22,7 @@ namespace :comatose do
 
     desc "If the installation didn't add the stylesheets correctly, use this task"
     task :copy_stylesheets do
-      sources         = File.join(Comatose.gem_root, 'public/stylesheets', '*.css')
+      sources         = File.join(Comatose.gem_root, 'public/stylesheets/comatose', '*.css')
       destination_dir = File.join(Rails.root.to_s, 'public/stylesheets/comatose')
       Comatose.logger.debug "[**Comatose**]: sources: #{sources}"
       puts "[**Comatose**]: sources: #{sources}"
@@ -38,7 +38,7 @@ namespace :comatose do
 
     desc "If the installation didn't add the javascripts correctly, use this task"
     task :copy_javascripts do
-      sources         = File.join(Comatose.gem_root, 'public/javascripts', '*.js')
+      sources         = File.join(Comatose.gem_root, 'public/javascripts/comatose', '*.js')
       destination_dir = File.join(Rails.root.to_s, 'public/javascripts/comatose')
       Comatose.logger.debug "[**Comatose**]: sources: #{sources}"
       puts "[**Comatose**]: sources: #{sources}"
@@ -73,8 +73,8 @@ namespace :comatose do
     desc "[EXPERIMENTAL] Restructures customized admin folder to version 0.6 from older version -- Only run this if you have customized the admin. USE_SVN=true if you want to update subversion"
     task :restructure_customization do
       ENV['USE_SVN'] ||= 'false'
-      move 'public/javscripts/comatose.js public/javscripts/comatose_admin.js' 
-      move 'public/stylesheets/comatose.css public/stylesheets/comatose_admin.css' 
+      move 'public/javscripts/comatose.js public/javscripts/admin.js'
+      move 'public/stylesheets/comatose.css public/stylesheets/admin.css'
       move 'app/views/comatose app/views/comatose_admin' 
       delete 'app/views/layouts/base.html.erb'
     end

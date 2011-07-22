@@ -39,10 +39,10 @@ namespace :comatose do
     task :teardown do
       puts "Removing public files..."
       FileUtils.rm(
-        File.join(RAILS_ROOT, 'public', 'stylesheets', 'comatose_admin.css')
+        File.join(RAILS_ROOT, 'public', 'stylesheets', 'admin.css')
       )
       FileUtils.rm(
-        File.join(RAILS_ROOT, 'public', 'javascripts', 'comatose_admin.js')
+        File.join(RAILS_ROOT, 'public', 'javascripts', 'admin.js')
       )
     
       puts "Removing application views..."

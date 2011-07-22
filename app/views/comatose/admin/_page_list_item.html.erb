@@ -39,7 +39,7 @@ collapse_children = (level >= Comatose.config.default_tree_level)
       </td>
       <td>
         <%- # TODO %>
-        <%= link_to page.title, edit_comatose_page_path(page, :locale => 'en', :title => "Path:#{page.full_path}"), :class => 'page' %>
+        <%= link_to page.title, edit_comatose_page_path(page, :locale => 'en'), :class => 'page' %>
       </td>
     </tr>
     <tr>

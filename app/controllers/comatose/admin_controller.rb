@@ -310,7 +310,7 @@ module Comatose
 
       def configure_template_root
         if self.runtime_mode == :unknown
-          if FileTest.exist? File.join(Rails.root, 'public', 'javascripts', 'comatose_admin.js')
+          if FileTest.exist? File.join(Rails.root, 'public', 'javascripts', 'admin.js')
             self.runtime_mode = :application
           else
             self.runtime_mode = :plugin
