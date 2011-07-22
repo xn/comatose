@@ -9,18 +9,7 @@
 #     tree depth.
 %>
 
-<%
-# Create the page-level links...
-links = []
-
-    links << link_to(pluralize(page.versions.length, 'revision', 'revisions'), :action=>'versions', :id => page) if !page.nil? and !page.versions.nil? and page.versions.length > 0
-    links << link_to('add child page', new_comatose_page_path(:parent => page, :title => "Add a child to '#{page.title}'"), :class => 'add-page')
-    links << link_to_function('reorder children', "ComatoseList.toggle_reorder('page_list_#{page.id}',this,#{page.id})", :title=>"Reorder children of '#{page.title}'", :class=>'reorder-children', :href=>url_for(:action=>'reorder', :id=>page)) if !page.children.empty? and page.children.length > 1
-    links << link_to('delete', {:action=>'delete', :id=>page}, :confirm=>'This will delete this page, and any children. Are you sure?', :title=>"Delete page '#{page.title}' and all it's children", :class=>'delete-page', :method=>'post', :onmouseover=>"ComatoseList.item_hover('page_#{page.id}', 'over', true)", :onmouseout=>"ComatoseList.item_hover('page_#{page.id}', 'out', true)") unless @root_pages.include? page
-
-# Level check, one, two, three...
-collapse_children = (level >= Comatose.config.default_tree_level)
-%>
+<% collapse_children = (level >= Comatose.config.default_tree_level) %>
 
 
 <li id="page_<%= page.id %>">
@@ -44,8 +33,17 @@ collapse_children = (level >= Comatose.config.default_tree_level)
     </tr>
     <tr>
       <td class="commands">
-        Updated <span title="Created on <%= page.created_on %>"><%= time_ago_in_words page.updated_on, true %> ago</span><%= " by #{page.author}" unless page.author.nil? or page.author.empty? %>,
-        <%= links.join(', ') %>.
+        Updated
+        <span title="Created on <%= page.created_at %>">
+          <%= time_ago_in_words page.updated_at, true %> ago
+        </span>
+        <%= " by #{page.author}" unless page.author.blank? %>,
+        <%= link_to_if(((page.versions.length > 0) rescue false), pluralize(page.versions.length, 'revision', 'revisions'), versions_comatose_page_path(page, :locale => 'en')) %>
+        <%= link_to 'add child page', new_comatose_page_path(:parent => page, :title => "Add a child to '#{page.title}'", :locale => 'en'), :class => 'add-page' %>
+        <% if !page.children.empty? and page.children.length > 1 %>
+            <%= link_to_function 'reorder children', "ComatoseList.toggle_reorder('page_list_#{page.id}',this,#{page.id})", :title=>"Reorder children of '#{page.title}'", :class=>'reorder-children', :href=>url_for(:action=>'reorder', :id=>page) %>
+        <% end %>
+        <%= link_to_unless @root_pages.include?(page), 'delete', comatose_page_path(page, :locale => 'en', :method => :destroy), :confirm=>'This will delete this page, and any children. Are you sure?', :title=>"Delete page '#{page.title}' and all it's children", :class=>'delete-page', :method=>'post', :onmouseover=>"ComatoseList.item_hover('page_#{page.id}', 'over', true)", :onmouseout=>"ComatoseList.item_hover('page_#{page.id}', 'out', true)" %>
       </td>
     </tr>
   </table>

@@ -39,15 +39,17 @@ module Comatose
     # Create a new page (posts back)
     def new
       @root_pages = [fetch_root_page].flatten
-      if request.post?
-        @page = Page.new params[:page]
-        @page.author = fetch_author_name
-        if @page.save
-          flash[:notice] = "Created page '#{@page.title}'"
-          redirect_to :controller=>self.controller_name, :action=>'index'
-        end
-      else
-        @page = Page.new :title=>'New Page', :parent_id=>(params[:parent] || nil)
+      @page = Page.new :title=>'New Page', :parent_id => params[:parent]
+    end
+
+
+    def create
+      @root_pages = [fetch_root_page].flatten
+      @page = Page.new params[:page]
+      @page.author = fetch_author_name
+      if @page.save
+        flash[:notice] = "Created page '#{@page.title}'"
+        redirect_to comatose_pages_path
       end
     end
 
@@ -269,6 +271,7 @@ module Comatose
     # Class Methods...
     class << self
 
+
       # Walks all the way down, and back up the tree -- the allows the expire_cms_page
       # to delete empty directories better
       def expire_cms_pages_from_bottom(page)
@@ -373,7 +376,7 @@ module Comatose
     def page_to_hash(page)
       data = page.attributes.clone
       # Pull out the specific, or unnecessary fields
-      %w(id parent_id updated_on author position version created_on full_path).each {|key| data.delete(key)}
+      %w(id parent_id updated_at author position version created_at full_path).each {|key| data.delete(key)}
       if !page.children.empty?
         data['children'] = []
         page.children.each do |child|
@@ -383,10 +386,15 @@ module Comatose
       data
     end
 
-    def hash_to_page_tree(hsh, page)
+    def hash_to_page_tree(hsh, page=nil)
       child_ary = hsh.delete 'children'
-      page.update_attributes(hsh)
-      page.save
+
+      if page.blank?
+        page = Comatose::Page.create_root(hsh)
+      else
+        page.update_attributes(hsh)
+      end
+
       child_ary.each do |child_hsh|
         if child_pg = page.children.find_by_slug( child_hsh['slug'] )
           hash_to_page_tree( child_hsh, child_pg )

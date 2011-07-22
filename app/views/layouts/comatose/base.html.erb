@@ -6,10 +6,7 @@
     <meta name="Generator" content="Comatose"/>
     <meta name="Keywords" content="<%= @page.keywords %>"/>
     <title><%= @page.title %></title>
-    <style>
-      BODY { font-family: sans-serif; color: #555; }
-      h1, h2, h3, h4, h5 { font-family: serif; color: #000; }
-    </style>
+    <%= stylesheet_link_tag 'base' %>
   </head>
   <body>
     <%= yield %>

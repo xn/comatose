@@ -8,14 +8,14 @@ module Comatose
           scope :module => "comatose" do
             constraints(LocaleConstraint) do
               match '/:locale/:page', :to => 'base#show'
-              match '/:locale', :to => 'base#show', :as => 'comatose_root'
+              match '/:locale',       :to => 'base#show', :as => 'comatose_root'
             end
           end
         when opts[:mount]
           scope :module => "comatose" do
             constraints(LocaleConstraint) do
               match "/:locale/#{opts[:mount]}/:page", :to => 'base#show', :index => opts[:mount]
-              match "/:locale/#{opts[:mount]}", :to => 'base#show', :as => "#{opts[:mount]}_comatose_root"
+              match "/:locale/#{opts[:mount]}",       :to => 'base#show', :as => "#{opts[:mount]}_comatose_root"
             end
           end
       end
@@ -25,6 +25,7 @@ module Comatose
     def admin_routes_for_comatose(*opts, &block)
       namespace :comatose, :path => "/:locale/comatose" do
         constraints(LocaleConstraint) do
+          match '', :to => 'admin#index'
           resources :pages, :controller => 'admin' do
             collection do
               post :import

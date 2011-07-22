@@ -29,33 +29,50 @@
       !Comatose.config.hidden_meta_fields.include? key
     end
 
-    # Used in the Page Form to build an indented drop-down list of pages
-    def tree_select_box(nodes, selected= nil, hide= nil, label="Parent", add_initial=false)
-      level = 0
-      select_box = add_initial ? "<option value=0>No #{label}</option>\n" : ""
-      selected = nodes[0].id if selected.nil? and not add_initial
-      nodes.each {|node| select_box += add_select_tree_node(node, selected, level, hide) }
-      select_box += ''
+
+    def select_from_node(nodes, selected=nil, hide=nil, html_options={})
+      html_options[:tabindex] ||= 9
+      html_options[:label]    ||= "Parent"
+      html_options[:name]     ||= "page[parent_id]"
+      html_options[:id]       ||= "page_parent"
+      html_options[:blank]    ||= false
+
+      options = options_for_select(collection_from_node_for_select(nodes, hide, html_options[:label], html_options[:blank]), selected)
+      select_tag html_options[:name], options, :id => html_options[:id], :tabindex => html_options[:tabindex]
     end
-    # Called by tree_select_box
-    def add_select_tree_node(node, selected, level, hide)
-      padding = "&nbsp;" * level * 4
-      padding += '&raquo; ' unless level==0
+
+
+    # Used in the Page Form to build an indented drop-down list of pages
+    def collection_from_node_for_select(nodes, hide=nil, label="Parent", add_initial=false)
+      level       = 0
+      options     = []
+
+      if add_initial
+        options << ["No #{label}", 0]
+      end
+
+      nodes.each do |node|
+        collection_from_child_for_select(node, level, hide, options)
+      end
+      return options
+    end
+
+
+    # Called by collection_from_node_for_select
+    def collection_from_child_for_select(node, level, hide, options=[])
+      padding     = " " * level * 4
+      padding     += '* ' unless level == 0
+
       hide_values = Array.new
       hide_values << hide if hide
-      if node.id == selected
-        select_box = %Q|<option value="#{node.id}" selected="true">#{padding}#{node.title}</option>\n|
-      else
-        if hide_values.include?(node.id)
-          select_box = ''
-        else
-          select_box = %Q|<option value="#{node.id}">#{padding}#{node.title}</option>\n|
+
+      unless hide_values.include?(node.id)
+        options << ["#{padding}#{node.title}", node.id]
+        node.children.each do |child|
+          collection_from_child_for_select(child, level + 1, hide, options)
         end
       end
-      node.children.each do |child|
-        select_box += add_select_tree_node(child, selected, level + 1, hide) unless hide_values.include?(node.id)
-      end
-      select_box
+      return options
     end
 
   end

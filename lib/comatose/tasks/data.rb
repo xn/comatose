@@ -7,7 +7,7 @@ namespace :comatose do
     def page_to_hash(page)
       data = page.attributes.clone
       # Pull out the specific, or unnecessary fields
-      %w(id parent_id updated_on author position version created_on full_path).each {|key| data.delete(key)}
+      %w(id parent_id updated_at author position version created_at full_path).each {|key| data.delete(key)}
       if !page.children.empty?
         data['children'] = []
         page.children.each do |child|

@@ -5,16 +5,19 @@ module Comatose
 #  - full_path
 #  - slug
 #  - keywords
+#  - layout
 #  - body
 #  - author
 #  - filter_type
 #  - position
 #  - version
-#  - updated_on
-#  - created_on
+#  - updated_at
+#  - created_at
   class Page < ActiveRecord::Base
 
     set_table_name 'comatose_pages'
+
+    attr_accessor :new_root_page
 
     # Only versions the content... Not all of the meta data or position
     acts_as_versioned :table_name=>'comatose_page_versions', :if_changed => [:title, :slug, :keywords, :body]
@@ -36,14 +39,12 @@ module Comatose
       end
     end
 
-    # Manually set these, because record_timestamps = false
-    before_create do |record|
-      record.created_on = record.updated_on = Time.now
-    end
 
-    validates_presence_of :title, :on => :save, :message => "must be present"
-    validates_uniqueness_of :slug, :on => :save, :scope=>'parent_id', :message => "is already in use"
-    validates_presence_of :parent_id, :on=>:create, :message=>"must be present"
+    validates_presence_of   :title,     :on => :save,                         :message => "must be present"
+    validates_uniqueness_of :slug,      :on => :save,   :scope=>'parent_id',  :message => "is already in use"
+
+    validates :parent_id, :presence => true, :on => :create, :unless => :new_root_page
+
 
     # Tests ERB/Liquid content...
     validates_each :body, :allow_nil=>true, :allow_blank=>true do |record, attr, value|
@@ -55,6 +56,16 @@ module Comatose
         record.errors.add :body, "content error: #{$!.to_s.gsub('<', '&lt;')}"
       end
     end
+
+
+    class <<self
+
+      def create_root(attrs)
+        Page.create(attrs)
+      end
+
+    end
+
 
     # Returns a pages URI dynamically, based on the active mount point
     def uri
@@ -104,15 +115,6 @@ module Comatose
       find( :first, :conditions=>[ 'full_path = ?', path ] )
     end
 
-  # Overrides...
-
-    # I don't want the AR magic timestamping support for this class...
-    def record_timestamps
-      false
-    end
-    def self.record_timestamps
-      false
-    end
 
   protected
 

@@ -3,7 +3,7 @@
 module Comatose
   class PageWrapper
 
-    @@allowed_methods = %w(id full_path uri slug keywords title to_html filter_type author updated_on created_on)
+    @@allowed_methods = %w(id full_path uri slug keywords title to_html filter_type author updated_at created_at)
     @@custom_methods = %w(link content parent next previous children rchildren first_child last_child has_keyword)
 
     attr_accessor :page

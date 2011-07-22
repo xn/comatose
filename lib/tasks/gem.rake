@@ -16,6 +16,7 @@ Echoe.new('comatose') do |p|
   p.install_message = File.read('INSTALL')
   p.description = %q{Web Content Management in Rails 3.}
   p.email = %q{btaylor39@csc.com}
+  p.clean_pattern = ["comatose.gemspec", "pkg", "Manifest"]
   p.ignore_pattern = [
       "bin/*",
 

@@ -11,8 +11,8 @@ module Comatose
       page = Page.find_by_path page_name
       status = nil
       if page.nil?
-        page = Page.find_by_path( '404' )
-        status = 404
+        status  = 404
+        page    = Page.find_by_path '404'
       end
       # if it's still nil, well, send a 404 status
       if page.nil?
@@ -89,7 +89,7 @@ module Comatose
     # Returns a path to plugin layout, if it's unspecified, otherwise
     # a path to an application layout...
     def get_page_layout
-      params[:layout] ||= 'comatose/base'
+      [params[:layout], @page.layout, 'comatose/base'].detect{ |shmerp| !shmerp.blank? }
     end
 
     # An after_filter implementing page caching if it's enabled, globally,

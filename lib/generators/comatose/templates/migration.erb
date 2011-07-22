@@ -13,13 +13,13 @@ class AddComatoseSupport < ActiveRecord::Migration
         t.string    "title",       :limit => 255
         t.string    "slug",        :limit => 255
         t.string    "keywords",    :limit => 255
+        t.string    "layout"
         t.text      "body"
         t.string    "filter_type", :limit => 25, :default => "Textile"
         t.string    "author",      :limit => 255
         t.integer   "position",    :default => 0
         t.integer   "version"
-        t.datetime  "updated_on"
-        t.datetime  "created_on"
+        t.timestamps
       end
 
       Comatose::Page.create_versioned_table rescue "Skipping Comatose::Page.create_versioned_table"

@@ -3,7 +3,6 @@ Gemfile
 Gemfile.lock
 INSTALL
 LICENSE
-Manifest
 README
 README.markdown
 Rakefile
@@ -28,7 +27,7 @@ app/views/comatose/admin/versions.html.erb
 app/views/layouts/application.html.erb
 app/views/layouts/comatose/admin.html.erb
 app/views/layouts/comatose/base.html.erb
-comatose.gemspec
+app/views/layouts/self_service.html.erb
 config.ru
 config/environment.rb
 config/environments/development.rb
@@ -85,6 +84,8 @@ public/javascripts/comatose/prototype.js
 public/javascripts/comatose/rails.js
 public/robots.txt
 public/stylesheets/comatose/admin.css
+public/stylesheets/comatose/base.css
+public/stylesheets/self_service.css
 spec/controllers/comatose/base_controller_spec.rb
 spec/controllers/foos_controller_spec.rb
 spec/helpers/foos_helper_spec.rb
@@ -106,3 +107,4 @@ test/unit/processing_context_test.rb
 test/unit/text_filters_test.rb
 views/layouts/comatose_admin.html.erb
 views/layouts/comatose_admin_customize.html.erb
+Manifest

@@ -51,7 +51,7 @@ class ProcessingContextTest < Test::Unit::TestCase
   end
   
   UNSAFE_PROPS = %w(version position)
-  SAFE_PROPS = %w(id full_path uri slug keywords title to_html filter_type author updated_on created_on)
+  SAFE_PROPS = %w(id full_path uri slug keywords title to_html filter_type author updated_at created_at)
   
   should "allow access to safe properties and methods when processing with ERB" do
     binding = Comatose::ProcessingContext.new( comatose_page(:faq) )
