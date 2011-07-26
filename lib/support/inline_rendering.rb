@@ -1,7 +1,7 @@
 # Extends the view to support rendering inline comatose pages...
 ActionView::Base.class_eval do
   alias_method :render_otherwise, :render
-  
+
   def render(options = {}, old_local_assigns = {}, &block) #:nodoc:
     if options.is_a?(Hash) && page_name = options.delete(:comatose)
       render_comatose(page_name, options[:params] || options)
@@ -9,7 +9,7 @@ ActionView::Base.class_eval do
       render_otherwise(options, old_local_assigns, &block)
     end
   end
-  
+
   def render_comatose(page_path, params = {})
     params = {
       :silent => false,
@@ -22,9 +22,9 @@ ActionView::Base.class_eval do
       render_comatose_page(page_path, params)
     end
   end
-  
+
 protected
-  
+
   def render_cached_comatose_page(page_path, params)
     key = page_path.gsub(/\//, '+')
     unless html = controller.read_fragment(key)
@@ -33,9 +33,9 @@ protected
     end
     html
   end
-  
+
   def render_comatose_page(page_path, params)
-    if page = Page.find_by_path(page_path)
+    if page = Comatose::Page.find_by_path(page_path)
       # Add the request params to the context...
       params[:locals]['params'] = controller.params
       html = page.to_html( params[:locals] )
@@ -43,6 +43,6 @@ protected
       html = params[:silent] ? '' : "<p><tt>#{page_path}</tt> not found</p>"
     end
   end
-  
+
 end
 

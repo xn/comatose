@@ -1,7 +1,9 @@
+require 'action_dispatch/routing/mapper'
+
 module Comatose
   module Routes
 
-    def routes_for_comatose(opts, &block)
+    def routes_for_comatose(opts={}, &block)
       Comatose.logger.debug("routes_for_comatose options: #{opts}")
       case
         when opts.empty?
@@ -15,28 +17,51 @@ module Comatose
           scope :module => "comatose" do
             constraints(LocaleConstraint) do
               match "/:locale/#{opts[:mount]}/:page", :to => 'base#show', :index => opts[:mount]
-              match "/:locale/#{opts[:mount]}",       :to => 'base#show', :as => "#{opts[:mount]}_comatose_root"
+              match "/:locale/#{opts[:mount]}",       :to => 'base#show', :index => opts[:mount], :as => "#{opts[:mount].underscore}_comatose_root"
             end
           end
+          Comatose.add_mount_point(opts[:mount], { :index => opts[:index] || '' })
       end
     end
 
 
-    def admin_routes_for_comatose(*opts, &block)
-      namespace :comatose, :path => "/:locale/comatose" do
-        constraints(LocaleConstraint) do
-          match '', :to => 'admin#index'
-          resources :pages, :controller => 'admin' do
-            collection do
-              post :import
-              get :export, :expire
-            end
+    def admin_routes_for_comatose(opts={}, &block)
+      Comatose.logger.debug("routes_for_comatose options: #{opts}")
+      case
+        when opts.empty?
+          namespace(:comatose, :path => "/:locale/comatose") do
+            constraints(LocaleConstraint) do
+              match '', :to => 'admin#index'
+              resources :pages, :controller => 'admin' do
+                collection do
+                  post :import
+                  get :export, :expire
+                end
 
-            member do
-              get :preview, :versions
+                member do
+                  get :preview, :versions, :reorder
+                end
+              end
             end
           end
-        end
+        when opts[:mount]
+          namespace(:comatose, :path => "/:locale/comatose") do
+          #  defaults :index => opts[:mount]  do
+              constraints(LocaleConstraint) do
+                match '', :to => 'admin#index'
+                resources :pages, :controller => 'admin' do
+                  collection do
+                    post :import
+                    get :export, :expire
+                  end
+
+                  member do
+                    get :preview, :versions, :reorder
+                  end
+                end
+              end
+            #end
+          end
       end
     end
 

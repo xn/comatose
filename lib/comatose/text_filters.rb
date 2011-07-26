@@ -27,15 +27,19 @@ module Comatose
 
 
       # Process the text with using the specified context
-    def process_text(text, context, processor=nil)
-      case (processor || TextFilters.default_processor)
-        when :erb then
-          process_with_erb(text, context)
-        when :liquid then
-          process_with_liquid(text, context)
-        else
-          raise "Unknown Text Processor '#{processor.to_s}'"
+    def process_text(text, context, processor=TextFilters.default_processor)
+      processed_text = nil
+      #Comatose.logger.debug "text before process: #{text}"
+      case
+      when processor == :erb
+        processed_text = process_with_erb(text, context)
+      when processor == :liquid
+        processed_text = process_with_liquid(text, context)
+      else
+        raise "Unknown Text Processor '#{processor.to_s}'"
       end
+      #Comatose.logger.debug "text after process: #{processed_text}"
+      return processed_text
     end
 
 
@@ -56,14 +60,15 @@ module Comatose
             raise "#render_text isn't implemented in this class"
           end
         rescue LoadError
-          TextFilters.logger.debug "Filter '#{name}' was not included: #{$!}" unless TextFilters.logger.nil?
+          #Comatose.logger.debug "Filter '#{name}' was not included: #{$!}" unless TextFilters.logger.nil?
         rescue
-          TextFilters.logger.debug "Filter '#{name}' was not included: #{$!}" unless TextFilters.logger.nil?
+          #Comatose.logger.debug "Filter '#{name}' was not included: #{$!}" unless TextFilters.logger.nil?
         end
       end
 
 
       def get_filter(name)
+        #Comatose.logger.debug "get_filter: #{name}"
         name = TextFilters.default_filter if name.nil?
         name = registered_titles[name] if name.is_a? String
         registered_filters[name]
@@ -97,10 +102,10 @@ module Comatose
 
         # Call
       def transform(text, context=nil, name=nil, processor=nil)
-        Comatose.logger.debug "[**Comatose**]: transform with text #{text}"
-        Comatose.logger.debug "[**Comatose**]: transform with context #{context}"
-        Comatose.logger.debug "[**Comatose**]: transform with name #{name}"
-        Comatose.logger.debug "[**Comatose**]: transform with processor #{processor}"
+        #Comatose.logger.debug "transform with text #{text}"
+        #Comatose.logger.debug "transform with context #{context}"
+        #Comatose.logger.debug "transform with name #{name}"
+        #Comatose.logger.debug "transform with processor #{processor}"
         render_text process_text(text, context, name, processor), name
       end
     end
@@ -115,25 +120,29 @@ module Comatose
     end
 
 
-      # Use ERB to process text...
+
     def process_with_erb(text, context)
-      begin
-        ERB.new(text).result(context.get_binding)
-      rescue
-        raise "ERB Error: #{$!}"
-      end
+      Comatose.logger.debug "process erb before: #{text}"
+      output = ERB.new(text).result(context.get_binding)
+      Comatose.logger.debug "process erb after: #{output}"
+      return output
+    rescue => e
+      Comatose.logger.debug e.backtrace.join("\n")
+      raise "ERB Error: #{$!}"
     end
 
 
-      # Use Liquid to process text...
-    def process_with_liquid(text, context={ })
-      begin
-        context = context.stringify_keys if context.respond_to? :stringify_keys
-        Liquid::Template.parse(text).render(context)
-      rescue
-        raise "Liquid Error: #{$!}"
-      end
+
+    def process_with_liquid(text, context={})
+      #Comatose.logger.debug "process liquid before: text: #{text}"
+      #Comatose.logger.debug "process liquid before: context: #{context}"
+      #context = context.stringify_keys if context.respond_to? :stringify_keys
+      Liquid::Template.parse(text).render(context)
+    rescue => e
+      Comatose.logger.debug e.backtrace.join("\n")
+      raise "Liquid Error: #{$!}"
     end
+
 
   end
 end

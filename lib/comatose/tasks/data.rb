@@ -32,12 +32,12 @@ namespace :comatose do
 
     desc "Saves a page tree from page FROM or '' to file TO_FILE or db/comatose-pages.yml"
     task :export do 
-      require "#{RAILS_ROOT}/config/environment"
+      require "#{Rails.root}/config/environment"
 
       root = ENV['FROM'] || ''
       target = ENV['TO_FILE'] || 'db/comatose-pages.yml'
       # Nested hash of the page tree...
-      from = Page.find_by_path(root)
+      from = Comatose::Page.find_by_path(root)
       if from
         data = page_to_hash( from ) 
         File.open(target, 'w') {|f| f.write data.to_yaml }
@@ -48,13 +48,13 @@ namespace :comatose do
       puts "Finished."
     end
 
-    desc "Loads page tree data FROM_FILE or db/comatose-pages.yml in to TO or Page.root"
+    desc "Loads page tree data FROM_FILE or db/comatose-pages.yml in to TO or Comatose::Page.root"
     task :import do 
-      require "#{RAILS_ROOT}/config/environment"
+      require "#{Rails.root}/config/environment"
 
       src = ENV['FROM_FILE'] || 'db/comatose-pages.yml'
       root = ENV['TO'] || ''
-      target = (root == '') ? Page.root : Page.find_by_path(root)
+      target = (root == '') ? Comatose::Page.root : Comatose::Page.find_by_path(root)
       data = YAML::load( File.open(src) )
       #hash_to_page(data, target)
       if target

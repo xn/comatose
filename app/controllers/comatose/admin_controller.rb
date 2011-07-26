@@ -29,11 +29,14 @@ module Comatose
       @root_pages = [fetch_root_page].flatten
 
       @page.update_attributes(params[:page].merge(:author => fetch_author_name))
+      Comatose.logger.debug "Saved #{@page}"
       expire_cms_page     @page
       expire_cms_fragment @page
       flash[:notice] = "Saved changes to '#{@page.title}'"
-      redirect_to comatose_pages_path and return true
+      redirect_to comatose_pages_path and return false
     rescue => e
+      Comatose.logger.info e.message
+      Comatose.logger.debug e.backtrace
     end
 
     # Create a new page (posts back)
@@ -199,6 +202,10 @@ module Comatose
       elsif defined? get_root_page
         get_root_page
       end
+    end
+
+    def get_root_page
+      Page.find(:first, :conditions => { :parent_id => nil })
     end
 
     # Sets the HTTP content-type header based on what's configured

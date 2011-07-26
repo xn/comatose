@@ -27,7 +27,6 @@ app/views/comatose/admin/versions.html.erb
 app/views/layouts/application.html.erb
 app/views/layouts/comatose/admin.html.erb
 app/views/layouts/comatose/base.html.erb
-app/views/layouts/self_service.html.erb
 config.ru
 config/environment.rb
 config/environments/development.rb
@@ -39,6 +38,9 @@ lib/comatose.rb
 lib/comatose/configuration.rb
 lib/comatose/drop.rb
 lib/comatose/engine.rb
+lib/comatose/filters/inline_filter.rb
+lib/comatose/filters/timeago_filter.rb
+lib/comatose/filters/translation_filter.rb
 lib/comatose/locale_constraint.rb
 lib/comatose/logger.rb
 lib/comatose/page_wrapper.rb
@@ -85,7 +87,6 @@ public/javascripts/comatose/rails.js
 public/robots.txt
 public/stylesheets/comatose/admin.css
 public/stylesheets/comatose/base.css
-public/stylesheets/self_service.css
 spec/controllers/comatose/base_controller_spec.rb
 spec/controllers/foos_controller_spec.rb
 spec/helpers/foos_helper_spec.rb
@@ -105,6 +106,4 @@ test/unit/class_options_test.rb
 test/unit/comatose_page_test.rb
 test/unit/processing_context_test.rb
 test/unit/text_filters_test.rb
-views/layouts/comatose_admin.html.erb
-views/layouts/comatose_admin_customize.html.erb
 Manifest

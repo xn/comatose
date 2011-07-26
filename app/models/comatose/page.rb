@@ -50,9 +50,11 @@ module Comatose
     validates_each :body, :allow_nil=>true, :allow_blank=>true do |record, attr, value|
       begin
         body_html = record.to_html
-      rescue SyntaxError
+      rescue SyntaxError => e
+        Comatose.logger.debug e.message
         record.errors.add :body, "syntax error: #{$!.to_s.gsub('<', '&lt;')}"
-      rescue
+      rescue => e
+        Comatose.logger.debug e.message
         record.errors.add :body, "content error: #{$!.to_s.gsub('<', '&lt;')}"
       end
     end
@@ -92,10 +94,12 @@ module Comatose
     # Returns the page's content, transformed and filtered...
     def to_html(options={})
       #version = options.delete(:version)
-      text        = self.body
-      binding     = Comatose::ProcessingContext.new(self, options)
-      filter_type = self.filter_type || '[No Filter]'
-      TextFilters.transform(text, binding, filter_type, Comatose.config.default_processor)
+      text              = self.body
+      binding           = Comatose::ProcessingContext.new(self, options)
+      filter_type       = self.filter_type || '[No Filter]'
+      transformed_text  = TextFilters.transform(text, binding, filter_type, Comatose.config.default_processor)
+      #Comatose.logger.debug "transformed_text: #{transformed_text}"
+      return transformed_text
     end
 
   # Static helpers...
@@ -131,15 +135,19 @@ module Comatose
           self.full_path = ""
        end
     end
+
+
     def create_full_path!
       create_full_path
       save
     end
 
+
     # Caches old path (before save) for comparison later
     def cache_full_path
       @old_full_path = self.full_path
     end
+
 
     # Updates all this content's child URI paths
     def update_children_full_path(should_save=true)

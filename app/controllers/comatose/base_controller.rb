@@ -8,8 +8,8 @@ module Comatose
     # Render a specific page
     def show
       page_name, page_ext = get_page_path
-      page = Page.find_by_path page_name
-      status = nil
+      page                = Page.find_by_path page_name
+      status              = nil
       if page.nil?
         status  = 404
         page    = Page.find_by_path '404'
@@ -23,7 +23,12 @@ module Comatose
         @page = Comatose::PageWrapper.new(page)
         # For accurate uri creation, tell the page class which is the active mount point...
         Page.active_mount_info = get_active_mount_point(params[:index])
-        render :text => page.to_html({'params' => params.stringify_keys}), :layout => get_page_layout, :status => status
+        rendered_text = page.to_html({
+          :view_context => view_context,
+          :params       => params.stringify_keys
+        })
+        #Comatose.logger.debug("rendered_text: #{rendered_text}")
+        render :text => rendered_text, :layout => get_page_layout, :status => status
       end
     end
 
@@ -47,7 +52,8 @@ module Comatose
     end
 
     # For use in the #show method... determines the current mount point
-    def get_active_mount_point( index )
+    def get_active_mount_point(index)
+      #Comatose.logger.debug "active_mount_point: #index: #{index}"
       Comatose.mount_points.each do |path_info|
         if path_info[:index] == index
           return path_info
@@ -56,31 +62,37 @@ module Comatose
       {:root=>"", :index=>index}
     end
 
+
     def get_page_path
-      logger.debug "[**Comatose**]: get_page_path, params[:page] class: #{params[:page].class }"
+      logger.debug "get_page_path: params[:page] class: #{params[:page].class }"
 
       case params[:page]
+      when String
+        page_name = [params[:index], params[:page]].join("/")
       when Array
         page_name = params[:page].join("/")
       when NilClass
         page_name = ''
       else
-        logger.debug "[**Comatose**]: get_page_path - params[:page] is an unrecognized type, may cause problems: #{params[:page].class}"
+        logger.debug "get_page_path - params[:page] is an unrecognized type, may cause problems: #{params[:page].class}"
         page_name = params[:page].to_s
       end
 
-      logger.debug "[**Comatose**]: got page_name: #{page_name}"
+      logger.debug "got page_name: #{page_name}"
 
 
       page_ext = page_name.split('.')[1] unless page_name.empty?
       # TODO: Automatic support for page RSS feeds... ????
       if page_name.nil? or page_name.empty?
+        #Comatose.logger.debug "page_name is blank"
         if params[:index].blank?
+          #Comatose.logger.debug "index is blank"
           page_name = ''
         else
           page_name           = params[:index]
           params[:cache_path] = "#{request.fullpath}/index"
-          page_name           = "#{params[:index]}/#{page_name}"
+          #page_name           = "#{params[:index]}/#{page_name}"
+          Comatose.logger.debug "after index: got page_name: #{page_name}"
         end
       end
       return page_name, page_ext
@@ -91,6 +103,7 @@ module Comatose
     def get_page_layout
       [params[:layout], @page.layout, 'comatose/base'].detect{ |shmerp| !shmerp.blank? }
     end
+
 
     # An after_filter implementing page caching if it's enabled, globally,
     # and is allowed by #allow_page_cache?

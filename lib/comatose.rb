@@ -3,6 +3,7 @@ require 'acts_as_list'
 require 'acts_as_tree_rails3'
 require 'redcloth'
 require 'liquid'
+require 'i18n'
 
 
 require 'comatose/logger'
@@ -66,6 +67,13 @@ require 'support/inline_rendering'
 Dir[File.join(File.dirname(__FILE__), 'text_filters', '*.rb')].each do |path|
   require "text_filters/#{File.basename(path)}"
 end
+
+Dir[File.join(File.dirname(__FILE__), 'comatose/filters', '*.rb')].each do |path|
+  require "comatose/filters/#{File.basename(path)}"
+end
+
+
+
 
 #require 'support/route_mapper'
 #
