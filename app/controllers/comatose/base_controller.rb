@@ -1,5 +1,5 @@
 module Comatose
-  class BaseController < ApplicationController
+  class BaseController < Comatose::ApplicationController
     unloadable
 
     before_filter :set_content_type, :handle_authorization
@@ -8,7 +8,7 @@ module Comatose
     # Render a specific page
     def show
       page_name, page_ext = get_page_path
-      page                = find_page(page_name)
+      page                = find_page(page_name, request)
       status              = nil
       if page.nil?
         status  = 404
@@ -25,7 +25,7 @@ module Comatose
         @current_user = current_user
         # For accurate uri creation, tell the page class which is the active mount point...
         Page.active_mount_info = get_active_mount_point(params[:index])
-        rendered_text = page.to_html({
+        rendered_text = page.to_comatose_html({
           'params'       => params.stringify_keys,
           'system'       => system_hash
         })

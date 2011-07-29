@@ -1,5 +1,5 @@
 module Comatose
-  class AdminController < ApplicationController
+  class AdminController < Comatose::ApplicationController
     unloadable
 
     define_option :original_template_root, nil

@@ -106,6 +106,7 @@ module Comatose
       #Comatose.logger.debug "transformed_text: #{transformed_text}"
       return transformed_text
     end
+    alias :to_comatose_html :to_html
 
 
     # Returns a Page with a matching path.
