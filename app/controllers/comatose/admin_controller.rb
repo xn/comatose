@@ -12,8 +12,7 @@ module Comatose
     # Shows the page tree
     def index
       @root_pages = [fetch_root_page].flatten
-      logger.debug "root_pages: "
-      logger.debug @root_pages.to_yaml
+      Comatose.logger.debug "current_user: #{current_user}"
     end
 
     # Edit a specific page
@@ -172,16 +171,26 @@ module Comatose
   protected
 
     def handle_authorization
-      if Comatose.config.admin_authorization.is_a? Proc
+      Comatose.logger.debug Comatose.config.admin_authorization.to_s
+      case Comatose.config.admin_authorization
+      when Proc
         instance_eval &Comatose.config.admin_authorization
-      elsif Comatose.config.admin_authorization.is_a? Symbol
+      when Symbol
         send(Comatose.config.admin_authorization)
-      elsif defined? authorize
-        authorize
+      when NilClass
+        @_current_user = "placeholder"
+        return true
+      when Module
       else
-        true
+        if defined? authorize
+          authorize
+        else
+          @_current_user = "placeholder"
+          return true
+        end
       end
     end
+
 
     def fetch_author_name
       if Comatose.config.admin_get_author.is_a? Proc
@@ -192,6 +201,7 @@ module Comatose
         get_author
       end
     end
+
 
     # Can be overridden -- return your root comtase page
     def fetch_root_page

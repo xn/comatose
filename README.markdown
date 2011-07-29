@@ -17,6 +17,7 @@ It's intended for simple CMS support. Comatose supports
  * Page processing through Liquid or ERb
  * Generators for easy installation/migration
  * Self-contained gem containing a Rails::Engine
+ * Code Editor for mark, designed by scienco.de (http://blog.scienceco.de/2011/06/19/einfacher-javascript-code-editor/)
 
 It's meant to be lean, mean, easily embedded, and easy to re-skin for 
 existing applications. If you need something more, I would recommend 
@@ -27,7 +28,7 @@ For more information, see the [Getting Started][] guide.
 ### Requirements
 
  * Rails 3.0.x (3.0.9)
- * `acts_as_list`, `acts_as_tree`, and `liquid` gems are required (at the moment)
+ * `acts_as_list-rails3`, `acts_as_tree_rails3`, and `liquid` gems are required (at the moment)
 
 
 ### Development Notes

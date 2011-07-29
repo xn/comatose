@@ -8,6 +8,7 @@ module Comatose
     raise "#configure must be sent a block" unless block_given?
     yield config
     config.validate!
+    config.include!
   end
   
   # All of the 'mount' points for Comatose
@@ -38,6 +39,7 @@ module Comatose
     attr_accessor_with_default :includes,             []
     attr_accessor_with_default :mount_points,         []
     attr_accessor_with_default :allow_import_export,  true
+    attr_accessor_with_default :page_finder,          :find_by_path
 
     # 'Blockable' setters
     blockable_attr_accessor    :authorization
@@ -45,6 +47,7 @@ module Comatose
     blockable_attr_accessor    :admin_get_author
     blockable_attr_accessor    :admin_get_root_page
     blockable_attr_accessor    :after_setup
+
 
     def initialize
       # Default procs for blockable attrs....
@@ -54,16 +57,30 @@ module Comatose
       @admin_get_root_page = Proc.new { Page.root }
       @after_setup         = Proc.new { true }
     end
+
     
     def validate!
-      # Rips through the config and validates it's, er, valid
-      raise ConfigurationError.new( "admin_get_author must be a Proc or Symbol" ) unless @admin_get_author.is_a? Proc or @admin_get_author.is_a? Symbol
-      raise ConfigurationError.new( "admin_authorization must be a Proc or Symbol" ) unless @admin_authorization.is_a? Proc or @admin_authorization.is_a? Symbol
-      raise ConfigurationError.new( "authorization must be a Proc or Symbol" ) unless @authorization.is_a? Proc or @authorization.is_a? Symbol
+      Comatose.logger.debug "Validating!"
+      raise Comatose::ConfigurationError.new( "admin_get_author must be a Proc or Symbol" ) unless @admin_get_author.is_a? Proc or @admin_get_author.is_a? Symbol
+      #raise ConfigurationError.new( "admin_authorization must be a Proc or Symbol" ) unless @admin_authorization.is_a? Proc or @admin_authorization.is_a? Symbol
+      #raise ConfigurationError.new( "authorization must be a Proc or Symbol" ) unless @authorization.is_a? Proc or @authorization.is_a? Symbol
       true
     end
-    
-    class ConfigurationError < StandardError; end
+
+
+    def include!
+      Comatose.logger.debug "Including!: #{@includes.to_s}"
+      @includes.each do |include_this|
+        begin
+          Comatose.logger.debug "including #{include_this.to_s}"
+          Comatose.send(:include, include_this)
+        rescue => e
+          Comatose.logger.debug "Unable to include config item: #{include_this.to_s}"
+          Comatose.logger.debug e.message
+        end
+      end
+    end
+
     
   end
 

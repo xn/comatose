@@ -66,6 +66,11 @@ module Comatose
         Page.create(attrs)
       end
 
+
+      def method_added(what)
+        Comatose.logger.debug "method added: #{what.to_s}"
+      end
+
     end
 
 
@@ -102,14 +107,12 @@ module Comatose
       return transformed_text
     end
 
-  # Static helpers...
 
     # Returns a Page with a matching path.
     def self.find_by_path(path)
-      logger.debug "[**Comatose**]: looking for Page with path: #{path}"
+      Comatose.logger.debug "looking for Page with path: #{path}"
       if path.blank?
-        logger.debug "[**Comatose**]: could not find Page with path: #{path}"
-        logger.debug "[**Comatose**]: trying Comatose 404 (TODO)"
+        Comatose.logger.debug "could not find Page with path: #{path}"
       else
        path = path.split('.')[0] # Will ignore file extension...
        if path.length > 1

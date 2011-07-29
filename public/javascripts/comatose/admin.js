@@ -3,6 +3,11 @@
 // License:               http://creativecommons.org/licenses/by/2.5/
 // Author:                Rafael Lima (http://rafael.adm.br)
 // Contributors:          http://rafael.adm.br/css_browser_selector#contributors
+
+function initializeEditor() {
+    $('textarea').editor();
+}
+
 var css_browser_selector = function() {
   var 
     ua = navigator.userAgent.toLowerCase(),

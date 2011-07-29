@@ -4,12 +4,13 @@ module Comatose
   class PageWrapper
 
     @@allowed_methods   = %w( id full_path uri slug keywords title to_html filter_type author updated_at created_at )
-    @@custom_methods    = %w( link content parent next previous children rchildren first_child last_child has_keyword )
+    @@custom_methods    = %w( link content parent next previous children rchildren first_child last_child has_keyword current_user )
 
-    attr_accessor :page
+    attr_accessor :page, :current_user
     #private :page
 
-    def initialize(page, locals={})
+    def initialize(page, locals={}, system={})
+      @current_user = system[:current_user]
       @page         = page
       @keyword_lst  = []
       @keyword_hsh  = {}

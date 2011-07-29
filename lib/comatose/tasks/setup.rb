@@ -48,6 +48,42 @@ namespace :comatose do
         FileUtils.mkdir destination_dir
       end
       FileUtils.cp(Dir.glob(sources), destination_dir, :verbose => true)
+
+      sources         = File.join(Comatose.gem_root, 'public/javascripts/jquery', '*')
+      destination_dir = File.join(Rails.root.to_s, 'public/javascripts/jquery')
+      Comatose.logger.debug "[**Comatose**]: sources: #{sources}"
+      puts "[**Comatose**]: sources: #{sources}"
+      Comatose.logger.debug "[**Comatose**]: destination dir: #{destination_dir}"
+      puts "[**Comatose**]: destination dir: #{destination_dir}"
+      unless FileTest.exist? destination_dir
+        FileUtils.mkdir destination_dir
+      end
+      FileUtils.cp(Dir.glob(sources), destination_dir, :verbose => true)
+
+      #source_tar        = File.join(Comatose.gem_root, 'public/javascripts/wymeditor.tar')
+      #destination_dir   = File.join(Rails.root.to_s, 'public/javascripts')
+      #Comatose.logger.debug "[**Comatose**]: source: #{source_tar}"
+      #puts "[**Comatose**]: source: #{source_tar}"
+      #Comatose.logger.debug "[**Comatose**]: destination dir: #{destination_dir}"
+      #puts "[**Comatose**]: destination dir: #{destination_dir}"
+      #unless FileTest.exist? destination_dir
+      #  FileUtils.mkdir destination_dir
+      #end
+      #FileUtils.cp(source_tar, destination_dir, :verbose => true)
+      #`tar xvf #{File.join(destination_dir, "wymeditor.tar")}`
+
+      sources         = File.join(Comatose.gem_root, 'public/javascripts', '*.js')
+      destination_dir = File.join(Rails.root.to_s, 'public/javascripts')
+      Comatose.logger.debug "[**Comatose**]: sources: #{sources}"
+      puts "[**Comatose**]: sources: #{sources}"
+      Comatose.logger.debug "[**Comatose**]: destination dir: #{destination_dir}"
+      puts "[**Comatose**]: destination dir: #{destination_dir}"
+      unless FileTest.exist? destination_dir
+        FileUtils.mkdir destination_dir
+      end
+      FileUtils.cp(Dir.glob(sources), destination_dir, :verbose => true)
+
+
       puts "Finished."
     end
     

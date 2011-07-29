@@ -278,7 +278,11 @@ BODY {
 
 #content .page-form #page_body {
     font-family: monospace;
-    font-size: 110%;
+    font-size: 120%;
+    background-color: #00008b;
+    width: 60em;
+    color: #f5f5f5;
+    margin: 10px 2px 10px 0px;
 }
 
 #content #button-group {

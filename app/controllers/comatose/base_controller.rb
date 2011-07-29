@@ -2,17 +2,17 @@ module Comatose
   class BaseController < ApplicationController
     unloadable
 
-    before_filter :handle_authorization, :set_content_type
-    after_filter :cache_cms_page
+    before_filter :set_content_type, :handle_authorization
+    after_filter  :cache_cms_page
 
     # Render a specific page
     def show
       page_name, page_ext = get_page_path
-      page                = Page.find_by_path page_name
+      page                = find_page(page_name)
       status              = nil
       if page.nil?
         status  = 404
-        page    = Page.find_by_path '404'
+        page    = find_page('404')
       end
       # if it's still nil, well, send a 404 status
       if page.nil?
@@ -20,29 +20,40 @@ module Comatose
         #raise ActiveRecord::RecordNotFound.new("Comatose page not found ")
       else
         # Make the page access 'safe'
-        @page = Comatose::PageWrapper.new(page)
+        system_hash   = { 'current_user' => @current_user, 'view_context' => view_context }
+        @page         = Comatose::PageWrapper.new(page, params.stringify_keys, system_hash)
+        @current_user = current_user
         # For accurate uri creation, tell the page class which is the active mount point...
         Page.active_mount_info = get_active_mount_point(params[:index])
         rendered_text = page.to_html({
-          :view_context => view_context,
-          :params       => params.stringify_keys
+          'params'       => params.stringify_keys,
+          'system'       => system_hash
         })
-        #Comatose.logger.debug("rendered_text: #{rendered_text}")
         render :text => rendered_text, :layout => get_page_layout, :status => status
       end
     end
 
   protected
 
+    protected
+
     def handle_authorization
-      if Comatose.config.authorization.is_a? Proc
+      case Comatose.config.authorization
+      when Proc
         instance_eval &Comatose.config.authorization
-      elsif Comatose.config.authorization.is_a? Symbol
+      when Symbol
         send(Comatose.config.authorization)
-      elsif defined? authorize
-        authorize
+      when NilClass
+        @_current_user = "placeholder"
+        return true
+      when Module
       else
-        true
+        if defined? authorize
+          authorize
+        else
+          @_current_user = "placeholder"
+          return true
+        end
       end
     end
 

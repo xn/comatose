@@ -47,6 +47,9 @@ module Comatose
     end
 
   end
+
+  class ConfigurationError < StandardError; end
+
 end
 
 require 'comatose/engine'
