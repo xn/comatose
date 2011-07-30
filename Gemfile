@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gemspec
+#gemspec
 
 #gem 'devise'
 #gem 'haml'
@@ -14,7 +14,8 @@ gem 'acts_as_tree_rails3'
 gem 'acts_as_list-rails3', :require => 'acts_as_list'
 
   group :development, :test do
-    gem 'jeweler'
+    # gem 'jeweler'
+    gem 'echoe'
     #gem 'autotest'
     #gem 'webrat'
     #gem 'gherkin', '2.1.5'

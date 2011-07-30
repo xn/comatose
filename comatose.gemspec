@@ -6,7 +6,8 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 1.8.4") if s.respond_to? :required_rubygems_version=
   s.authors = [%q{Bryan Taylor, Matt McCray, Michael Kovacs}]
-  s.date = %q{2011-07-29}
+  s.cert_chain = [%q{/Users/bryan/.gem_credentials/gem-public_cert.pem}]
+  s.date = %q{2011-07-30}
   s.description = %q{Web Content Management in Rails 3.}
   s.email = %q{btaylor39@csc.com}
   s.extra_rdoc_files = [%q{CHANGELOG}, %q{LICENSE}, %q{README}, %q{README.markdown}, %q{lib/comatose.rb}, %q{lib/comatose/configuration.rb}, %q{lib/comatose/drop.rb}, %q{lib/comatose/engine.rb}, %q{lib/comatose/filters/inline_filter.rb}, %q{lib/comatose/filters/timeago_filter.rb}, %q{lib/comatose/filters/translation_filter.rb}, %q{lib/comatose/locale_constraint.rb}, %q{lib/comatose/logger.rb}, %q{lib/comatose/page_wrapper.rb}, %q{lib/comatose/processing_context.rb}, %q{lib/comatose/routes.rb}, %q{lib/comatose/tasks/admin.rb}, %q{lib/comatose/tasks/data.rb}, %q{lib/comatose/tasks/setup.rb}, %q{lib/comatose/text_filters.rb}, %q{lib/comatose/version.rb}, %q{lib/generators/comatose/USAGE}, %q{lib/generators/comatose/comatose_generator.rb}, %q{lib/generators/comatose/templates/comatose.rb}, %q{lib/generators/comatose/templates/migration.erb}, %q{lib/generators/comatose/templates/seeds.erb}, %q{lib/support/class_options.rb}, %q{lib/support/inline_rendering.rb}, %q{lib/support/route_mapper.rb}, %q{lib/tasks/comatose.rake}, %q{lib/text_filters/markdown.rb}, %q{lib/text_filters/markdown_smartypants.rb}, %q{lib/text_filters/none.rb}, %q{lib/text_filters/rdoc.rb}, %q{lib/text_filters/simple.rb}, %q{lib/text_filters/textile.rb}]
@@ -31,6 +32,7 @@ From here you'll want to run:
   s.require_paths = [%q{lib}]
   s.rubyforge_project = %q{comatose}
   s.rubygems_version = %q{1.8.5}
+  s.signing_key = %q{/Users/bryan/.gem_credentials/gem-private_key.pem}
   s.summary = %q{Micro CMS - resurrected for Rails 3}
   s.test_files = [%q{test/functional/comatose_admin_controller_test.rb}, %q{test/functional/comatose_controller_test.rb}, %q{test/integration/comatose_routing_test.rb}, %q{test/performance/browsing_test.rb}, %q{test/test_helper.rb}, %q{test/unit/class_options_test.rb}, %q{test/unit/comatose_page_test.rb}, %q{test/unit/processing_context_test.rb}, %q{test/unit/text_filters_test.rb}]
 
