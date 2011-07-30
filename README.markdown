@@ -3,7 +3,7 @@
 * Version: 3.0.0 (beta)
 * Author:  Bryan Taylor (originally written by Matt McCray)
 * Website: github.com/rubyisbeautiful/comatose
-* Email: btaylor39 at csc dot com
+* Email: artofobjects at gmail dot com
 
 
 *Comatose* is a micro CMS designed for being embedded into existing Rails 
@@ -100,7 +100,7 @@ project site.
 
 If you like it, hate it, or have some ideas for new features, let me know!
 
-btaylor39 at csc dot com
+artofobjects at gmail dot com
 
 
 [Getting Started]: http://github.com/rubyisbeautiful/comatose

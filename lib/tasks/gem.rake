@@ -4,8 +4,8 @@ require 'rails/all'
 require File.expand_path('../../comatose/version.rb', __FILE__)
 
 
-Echoe.new('comatose') do |p|
-  p.project = 'comatose'
+Echoe.new('comatose-rubyisbeautiful') do |p|
+  p.project = 'comatose-rubyisbeautiful'
   p.require_signed = true
   p.author = ['Bryan Taylor', 'Matt McCray', "Michael Kovacs"]
   p.summary = 'Micro CMS - resurrected for Rails 3'
@@ -16,7 +16,7 @@ Echoe.new('comatose') do |p|
   p.version = Comatose::VERSION
   p.install_message = File.read('INSTALL')
   p.description = %q{Web Content Management in Rails 3.}
-  p.email = %q{btaylor39@csc.com}
+  p.email = %q{ artofobjects at gmail dot com }
   # p.clean_pattern = ["comatose.gemspec", "pkg", "manifest"]
   p.ignore_pattern = [
       "bin/*",
