@@ -46,7 +46,7 @@
       <label for="page_body">Body</label>
     </td>
     <td class="field">
-      <%= f.text_area :body, :rows => 20, :tabindex => 2, :wrap => "off", :nowrap => "nowrap", :spellcheck => "false", :indentwidth => 2, :class => 'comatose_editor' %>
+      <%= f.text_area :body, :rows => 20, :tabindex => 2, :wrap => "off", :nowrap => "nowrap", :spellcheck => "false", :indentwidth => 2, :class => Comatose.config.admin_editor.to_s %>
     </td>
   </tr>
 
@@ -82,8 +82,9 @@
   </div>
 <% end %>
 <%= image_tag 'comatose/spinner.gif', :id => 'spinner', :align => 'absmiddle', :style => 'display:none;' %>
-  <%- #= button_to_function('Preview', "ComatoseEditForm.preview_content('#{preview_comatose_page_path(@page, :locale  =>  'en')}')", :tabindex  =>  3, :id => 'preview-btn' ) if show_field? 'preview' %>
-  <%= submit_tag ((mode == :edit) ? 'Save Changes' : 'Create Page'), :tabindex => 10 %>
+  <%= link_to_function('Preview', "ComatoseEditForm.preview_content('#{preview_comatose_page_path(@page, :locale  =>  'en')}')", :tabindex  =>  3, :id => 'preview-btn') if show_field? 'preview' %>
+  <%= submit_tag 'Save and Continue', :tabindex => 10 %>
+  <%= submit_tag ((mode == :edit) ? 'Save and Exit' : 'Create Page and Exit'), :tabindex => 11 %>
   <% if @page.versions.length > 0 %>
     <%= link_to "Revert", :action => 'versions', :id => @page %>
   <% end %>

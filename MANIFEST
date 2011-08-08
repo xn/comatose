@@ -3,6 +3,7 @@ Gemfile
 Gemfile.lock
 INSTALL
 LICENSE
+Manifest
 README
 README.markdown
 Rakefile
@@ -27,6 +28,7 @@ app/views/comatose/admin/versions.html.erb
 app/views/layouts/application.html.erb
 app/views/layouts/comatose/admin.html.erb
 app/views/layouts/comatose/base.html.erb
+comatose-rubyisbeautiful.gemspec
 config.ru
 config/environment.rb
 config/environments/development.rb
@@ -81,14 +83,7 @@ public/javascripts/comatose/admin.js
 public/javascripts/comatose/application.js
 public/javascripts/comatose/dragdrop.js
 public/javascripts/editor.js
-public/javascripts/jquery/GPL-LICENSE.txt
-public/javascripts/jquery/MIT-LICENSE.txt
-public/javascripts/jquery/README
 public/javascripts/jquery/jquery.js
-public/javascripts/jquery/jquery.ui.draggable.js
-public/javascripts/jquery/jquery.ui.js
-public/javascripts/jquery/jquery.ui.resizable.js
-public/javascripts/jquery/jquery.ui.sortable.js
 public/javascripts/wymeditor.tar
 public/javascripts/wymeditor/iframe/default/lbl-blockquote.png
 public/javascripts/wymeditor/iframe/default/lbl-h1.png
@@ -185,4 +180,3 @@ test/unit/class_options_test.rb
 test/unit/comatose_page_test.rb
 test/unit/processing_context_test.rb
 test/unit/text_filters_test.rb
-Manifest

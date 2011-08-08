@@ -12,8 +12,19 @@
     <%= javascript_include_tag "jquery/jquery" %>
     <%= javascript_include_tag "wymeditor/jquery.wymeditor.min" %>
     <%= javascript_include_tag "editor" %>
+
+    <% javascript_tag do -%>
+      jQuery(function() {
+          jQuery(".wymeditor").wymeditor();
+      });
+
+      jQuery(function () {
+          jQuery(".editor").editor();
+      });
+    <% end -%>
+
   </head>
-  <body onload="initializeEditor()">
+  <body>
     <div id="page-container">
       <div id="header">
         <h1><%= link_to Comatose.config.admin_title, :controller=>controller.controller_name, :action=>'index' %></h1>

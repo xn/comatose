@@ -107,19 +107,20 @@ module Comatose
     # Returns a preview of the page content...
     def preview
       begin
-        page = Page.new(params[:page])
+        content     = "No Content"
+        page        = Page.new(params[:page])
         page.author = fetch_author_name
         if params.has_key? :version
-          content = page.to_html( {'params'=>params.stringify_keys, 'version'=>params[:version]} )
+          content = page.to_html({ 'params' => params.stringify_keys, 'version' => params[:version] })
         else
-          content = page.to_html( {'params'=>params.stringify_keys} )
+          content = page.to_html({ 'params' => params.stringify_keys })
         end
       rescue SyntaxError
         content = "<p>There was an error generating the preview.</p><p><pre>#{$!.to_s.gsub(/\</, '&lt;')}</pre></p>"
       rescue
         content = "<p>There was an error generating the preview.</p><p><pre>#{$!.to_s.gsub(/\</, '&lt;')}</pre></p>"
       end
-      render :text=>content, :layout => false
+      render :text  => content, :layout => false
     end
 
     # Expires the entire page cache

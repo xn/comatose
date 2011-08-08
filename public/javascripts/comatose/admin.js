@@ -4,9 +4,6 @@
 // Author:                Rafael Lima (http://rafael.adm.br)
 // Contributors:          http://rafael.adm.br/css_browser_selector#contributors
 
-function initializeEditor() {
-    $('textarea').editor();
-}
 
 var css_browser_selector = function() {
   var 
@@ -178,19 +175,15 @@ var ComatoseEditForm = {
   // Uses server to create preview of content...
   preview_content : function(preview_url) {
     $('preview-area').show();
-    var params = Form.serialize(document.forms[0]);
+    var params = $('#page_edit').serialize();
     if( params != this.last_preview ) {
       $('preview-panel').innerHTML = "<span style='color:blue;'>Loading Preview...</span>";
-      new Ajax.Updater(
-         'preview-panel',
-         preview_url,
-         { parameters: params }
-      );
+      $('#preview-panel').load(preview_url, params);
     }
     this.last_preview = params;
   },
   cancel : function(url) {
-    var current_data = Form.serialize(document.forms[0]);
+    var current_data = $('#page_edit').serialize();
     var data_changed = (this.default_data != current_data) 
     if(data_changed) {
       if( confirm('Changes detected. You will lose all the updates you have made if you proceed...') ) {

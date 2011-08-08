@@ -39,7 +39,8 @@ module Comatose
                 end
 
                 member do
-                  get :preview, :versions, :reorder
+                  get  :versions, :reorder
+                  post :preview
                 end
               end
             end
@@ -56,7 +57,7 @@ module Comatose
                   end
 
                   member do
-                    get :preview, :versions, :reorder
+                    get  :preview, :versions, :reorder
                   end
                 end
               end

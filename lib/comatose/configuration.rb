@@ -25,10 +25,11 @@ module Comatose
 
   class Configuration
 
-    attr_accessor_with_default :admin_title,          'Comatose'
+    attr_accessor_with_default :admin_editor,         :editor
     attr_accessor_with_default :admin_includes,       []
     attr_accessor_with_default :admin_helpers,        []
     attr_accessor_with_default :admin_sub_title,      'The Micro CMS'
+    attr_accessor_with_default :admin_title,          'Comatose'
     attr_accessor_with_default :content_type,         'utf-8'
     attr_accessor_with_default :default_filter,       'Textile'
     attr_accessor_with_default :default_processor,    :liquid
