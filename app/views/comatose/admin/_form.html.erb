@@ -1,6 +1,6 @@
 <%- # TODO error_messages_for :page %>
 
-<% form_for @page, :as  =>  :page do |f| %>
+<% form_for @page, :url => comatose_page_path(@page), :as  =>  :page do |f| %>
 <table class="page-form" cellpadding="0" cellspacing="0">
 
   <tr>
@@ -82,7 +82,9 @@
   </div>
 <% end %>
 <%= image_tag 'comatose/spinner.gif', :id => 'spinner', :align => 'absmiddle', :style => 'display:none;' %>
-  <%= link_to_function('Preview', "ComatoseEditForm.preview_content('#{preview_comatose_page_path(@page, :locale  =>  'en')}')", :tabindex  =>  3, :id => 'preview-btn') if show_field? 'preview' %>
+  <%- unless @page.id.blank? %>
+    <%= link_to_function('Preview', "ComatoseEditForm.preview_content('#{preview_comatose_page_path(@page, :locale  =>  'en')}')", :tabindex  =>  3, :id => 'preview-btn') if show_field? 'preview' %>
+  <% end %>
   <%= submit_tag 'Save and Continue', :tabindex => 10 %>
   <%= submit_tag ((mode == :edit) ? 'Save and Exit' : 'Create Page and Exit'), :tabindex => 11 %>
   <% if @page.versions.length > 0 %>
