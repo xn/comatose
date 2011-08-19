@@ -2,12 +2,12 @@
 
 Gem::Specification.new do |s|
   s.name = %q{comatose-rubyisbeautiful}
-  s.version = "3.0.1"
+  s.version = "3.0.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 1.8.4") if s.respond_to? :required_rubygems_version=
   s.authors = [%q{Bryan Taylor, Matt McCray, Michael Kovacs}]
   s.cert_chain = [%q{/Users/bryan/.gem_credentials/gem-public_cert.pem}]
-  s.date = %q{2011-08-08}
+  s.date = %q{2011-08-19}
   s.description = %q{Web Content Management in Rails 3.}
   s.email = %q{ artofobjects at gmail dot com }
   s.extra_rdoc_files = [%q{CHANGELOG}, %q{LICENSE}, %q{README}, %q{README.markdown}, %q{lib/comatose.rb}, %q{lib/comatose/configuration.rb}, %q{lib/comatose/drop.rb}, %q{lib/comatose/engine.rb}, %q{lib/comatose/filters/inline_filter.rb}, %q{lib/comatose/filters/timeago_filter.rb}, %q{lib/comatose/filters/translation_filter.rb}, %q{lib/comatose/locale_constraint.rb}, %q{lib/comatose/logger.rb}, %q{lib/comatose/page_wrapper.rb}, %q{lib/comatose/processing_context.rb}, %q{lib/comatose/routes.rb}, %q{lib/comatose/tasks/admin.rb}, %q{lib/comatose/tasks/data.rb}, %q{lib/comatose/tasks/setup.rb}, %q{lib/comatose/text_filters.rb}, %q{lib/comatose/version.rb}, %q{lib/generators/comatose/USAGE}, %q{lib/generators/comatose/comatose_generator.rb}, %q{lib/generators/comatose/templates/comatose.rb}, %q{lib/generators/comatose/templates/migration.erb}, %q{lib/generators/comatose/templates/seeds.erb}, %q{lib/support/class_options.rb}, %q{lib/support/inline_rendering.rb}, %q{lib/support/route_mapper.rb}, %q{lib/tasks/comatose.rake}, %q{lib/text_filters/markdown.rb}, %q{lib/text_filters/markdown_smartypants.rb}, %q{lib/text_filters/none.rb}, %q{lib/text_filters/rdoc.rb}, %q{lib/text_filters/simple.rb}, %q{lib/text_filters/textile.rb}]
