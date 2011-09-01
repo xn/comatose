@@ -1,9 +1,9 @@
 <%- # TODO error_messages_for :page %>
 
   <% if @page.new_record? %>
-    @_form_url = "/#{I18n.locale}/comatose/pages"
+    <% @_form_url = "/#{I18n.locale}/comatose/pages" %>
   <% else %>
-    @_form_url = comatose_page_path(@page, :locale => I18n.locale)
+    <% @_form_url = comatose_page_path(@page, :locale => I18n.locale) %>
   <% end %>
 
 <% form_for @page, :url => @_form_url, :as => :page do |f| %>

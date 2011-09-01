@@ -1,5 +1,5 @@
 module Comatose
-  VERSION = "3.0.4"
+  VERSION = "3.0.5"
   VERSION_STRING = "#{VERSION}  (beta)"
 
   def self.version
