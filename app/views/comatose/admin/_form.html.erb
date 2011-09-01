@@ -1,106 +1,104 @@
 <%- # TODO error_messages_for :page %>
 
-  3 <% if @page.new_record? %>
-  4   @_form_url = "/#{I18n.locale}/comatose/pages"
-  5 <% else %>
-  6   @_form_url = comatose_page_path(@page, :locale => I18n.locale)
-  7 <% end %>
-  8
-  9 <% form_for @page, :url => @_form_url, :as => :page do |f| %>
+  <% if @page.new_record? %>
+    @_form_url = "/#{I18n.locale}/comatose/pages"
+  <% else %>
+    @_form_url = comatose_page_path(@page, :locale => I18n.locale)
+  <% end %>
 
-<% form_for @page, :url => comatose_page_path(@page), :as  =>  :page do |f| %>
-<table class="page-form" cellpadding="0" cellspacing="0">
+<% form_for @page, :url => @_form_url, :as => :page do |f| %>
+  <table class="page-form" cellpadding="0" cellspacing="0">
 
-  <tr>
-    <td class="label"><label for="page_title">Title</label></td>
-    <td class="field"><%= f.text_field :title, :tabindex => 1, :maxlength => 255, :size => 50 %> <%= link_to_function "More...", "ComatoseEditForm.toggle_extra_fields(this)", :id => 'more-options' %></td>
-  </tr>
+    <tr>
+      <td class="label"><label for="page_title">Title</label></td>
+      <td class="field"><%= f.text_field :title, :tabindex => 1, :maxlength => 255, :size => 50 %> <%= link_to_function "More...", "ComatoseEditForm.toggle_extra_fields(this)", :id => 'more-options' %></td>
+    </tr>
 
-  <tr id="slug_row" class="meta-info">
-    <td class="label"><label for="page_slug">Slug</label></td>
-    <td class="field"><%= f.text_field :slug, :tabindex => 6, :maxlength => 255, :size => 50, :disabled => @root_pages.include?(@page) %></td>
-  </tr>
+    <tr id="slug_row" class="meta-info">
+      <td class="label"><label for="page_slug">Slug</label></td>
+      <td class="field"><%= f.text_field :slug, :tabindex => 6, :maxlength => 255, :size => 50, :disabled => @root_pages.include?(@page) %></td>
+    </tr>
 
-<% if show_field? 'keywords' %>
-  <tr id="keywords_row" class="meta-info">
-    <td class="label"><label for="page_keywords">Keywords</label></td>
-    <td class="field"><%= f.text_field :keywords, :tabindex => 7, :maxlength => 1000, :size => 50 %></td>
-  </tr>
-<% end %>
+  <% if show_field? 'keywords' %>
+    <tr id="keywords_row" class="meta-info">
+      <td class="label"><label for="page_keywords">Keywords</label></td>
+      <td class="field"><%= f.text_field :keywords, :tabindex => 7, :maxlength => 1000, :size => 50 %></td>
+    </tr>
+  <% end %>
 
-<% if show_field? 'layout' %>
-  <tr id="layout_row" class="meta-info">
-    <td class="label"><label for="page_layout">Layout</label></td>
-    <td class="field"><%= f.text_field :layout, :tabindex => 8, :maxlength => 1000, :size => 50 %></td>
-  </tr>
-<% end %>
+  <% if show_field? 'layout' %>
+    <tr id="layout_row" class="meta-info">
+      <td class="label"><label for="page_layout">Layout</label></td>
+      <td class="field"><%= f.text_field :layout, :tabindex => 8, :maxlength => 1000, :size => 50 %></td>
+    </tr>
+  <% end %>
 
 
-<% if show_field? 'parent' %>
-  <tr id="parent_row" class="meta-info">
-    <td class="label"><label for="page_parent">Parent</label></td>
-    <td class="field">
-      <% if mode != :new and @root_pages.include? @page %>
-        <select id="page_parent" disabled="true"><option><%= @page.title %> is a root page</option></select>
-      <% else %>
-          <%= select_from_node(@root_pages, @page.parent_id, @page.id, :tabindex => 9, :label => "Parent") %>
-       <% end %>
-    </td>
-  </tr>
-<% end %>
+  <% if show_field? 'parent' %>
+    <tr id="parent_row" class="meta-info">
+      <td class="label"><label for="page_parent">Parent</label></td>
+      <td class="field">
+        <% if mode != :new and @root_pages.include? @page %>
+          <select id="page_parent" disabled="true"><option><%= @page.title %> is a root page</option></select>
+        <% else %>
+            <%= select_from_node(@root_pages, @page.parent_id, @page.id, :tabindex => 9, :label => "Parent") %>
+         <% end %>
+      </td>
+    </tr>
+  <% end %>
 
-  <tr>
-    <td class="label body">
-      <label for="page_body">Body</label>
-    </td>
-    <td class="field">
-      <%= f.text_area :body, :rows => 20, :tabindex => 2, :wrap => "off", :nowrap => "nowrap", :spellcheck => "false", :indentwidth => 2, :class => Comatose.config.admin_editor.to_s %>
-    </td>
-  </tr>
+    <tr>
+      <td class="label body">
+        <label for="page_body">Body</label>
+      </td>
+      <td class="field">
+        <%= f.text_area :body, :rows => 20, :tabindex => 2, :wrap => "off", :nowrap => "nowrap", :spellcheck => "false", :indentwidth => 2, :class => Comatose.config.admin_editor.to_s %>
+      </td>
+    </tr>
 
-<% if show_field? 'filter' %>
-  <tr id="filter_row" class="meta-info">
-    <td class="label"><label for="page_filter_type">Filter</label></td>
-    <td class="field">
-      <%= select_tag 'page[filter_type]', options_for_select(Comatose::TextFilters.all_titles.sort, @page.filter_type || Comatose.config.default_filter), :tabindex => 3, :id => 'page_filter_type' %>
-      <span class="field-help">Converts plain text into html</span>
-    </td>
-  </tr>
-<% end %>
+  <% if show_field? 'filter' %>
+    <tr id="filter_row" class="meta-info">
+      <td class="label"><label for="page_filter_type">Filter</label></td>
+      <td class="field">
+        <%= select_tag 'page[filter_type]', options_for_select(Comatose::TextFilters.all_titles.sort, @page.filter_type || Comatose.config.default_filter), :tabindex => 3, :id => 'page_filter_type' %>
+        <span class="field-help">Converts plain text into html</span>
+      </td>
+    </tr>
+  <% end %>
 
-<% if show_field? 'created_at' %>
-  <tr id="created_row" class="meta-info">
-    <td class="label"><label for="page_created_at">Created</label></td>
-    <td class="field">
-      <%= f.datetime_select :created_at %>
-    </td>
-  </tr>
-<% end %>
+  <% if show_field? 'created_at' %>
+    <tr id="created_row" class="meta-info">
+      <td class="label"><label for="page_created_at">Created</label></td>
+      <td class="field">
+        <%= f.datetime_select :created_at %>
+      </td>
+    </tr>
+  <% end %>
 
-</table>
+  </table>
 
-<div id="button-group">
-<% unless @page.updated_at.nil? %>
-  <div class="last-update">
-    <label>
-      Updated <%= time_ago_in_words @page.updated_at, true %> ago by
-      <%= @page.author %>.
-      <%= link_to_if(((@page.versions.length > 0) rescue false), pluralize(@page.versions.length, 'revision', 'revisions'), versions_comatose_page_path(@page, :locale  =>  'en'))  %>
-    </label>
+  <div id="button-group">
+  <% unless @page.updated_at.nil? %>
+    <div class="last-update">
+      <label>
+        Updated <%= time_ago_in_words @page.updated_at, true %> ago by
+        <%= @page.author %>.
+        <%= link_to_if(((@page.versions.length > 0) rescue false), pluralize(@page.versions.length, 'revision', 'revisions'), versions_comatose_page_path(@page, :locale  =>  'en'))  %>
+      </label>
+    </div>
+  <% end %>
+  <%= image_tag 'comatose/spinner.gif', :id => 'spinner', :align => 'absmiddle', :style => 'display:none;' %>
+    <%- unless @page.id.blank? %>
+      <%= link_to_function('Preview', "ComatoseEditForm.preview_content('#{preview_comatose_page_path(@page, :locale  =>  'en')}')", :tabindex  =>  3, :id => 'preview-btn') if show_field? 'preview' %>
+    <% end %>
+    <%= submit_tag 'Save and Continue', :tabindex => 10 %>
+    <%= submit_tag ((mode == :edit) ? 'Save and Exit' : 'Create Page and Exit'), :tabindex => 11 %>
+    <% if @page.versions.length > 0 %>
+      <%= link_to "Revert", :action => 'versions', :id => @page %>
+    <% end %>
+    or
+    <a href="<%= comatose_pages_path %>" onlick="ComatoseEditForm.cancel(this.href); return false;" tabindex="5">Cancel</a>
   </div>
-<% end %>
-<%= image_tag 'comatose/spinner.gif', :id => 'spinner', :align => 'absmiddle', :style => 'display:none;' %>
-  <%- unless @page.id.blank? %>
-    <%= link_to_function('Preview', "ComatoseEditForm.preview_content('#{preview_comatose_page_path(@page, :locale  =>  'en')}')", :tabindex  =>  3, :id => 'preview-btn') if show_field? 'preview' %>
-  <% end %>
-  <%= submit_tag 'Save and Continue', :tabindex => 10 %>
-  <%= submit_tag ((mode == :edit) ? 'Save and Exit' : 'Create Page and Exit'), :tabindex => 11 %>
-  <% if @page.versions.length > 0 %>
-    <%= link_to "Revert", :action => 'versions', :id => @page %>
-  <% end %>
-  or
-  <a href="<%= comatose_pages_path %>" onlick="ComatoseEditForm.cancel(this.href); return false;" tabindex="5">Cancel</a>
-</div>
 <% end %>
 
 <div id="preview-area">
