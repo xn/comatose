@@ -6,12 +6,13 @@ source 'http://rubygems.org'
 #gem 'haml'
 #gem "oa-oauth", :require => "omniauth/oauth"
 #gem 'oa-openid', :require => 'omniauth/openid'
-gem 'rails', '3.0.9'
+gem 'rails', '3.1.1'
+
 gem 'RedCloth'
 gem 'liquid'
-gem 'acts_as_versioned', :require => 'acts_as_versioned'
+gem 'acts_as_versioned'
+gem 'acts_as_list'
 gem 'acts_as_tree_rails3'
-gem 'acts_as_list-rails3', :require => 'acts_as_list'
 
   group :development, :test do
     # gem 'jeweler'
