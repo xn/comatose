@@ -9,7 +9,7 @@ Echoe.new('comatose-rubyisbeautiful') do |p|
   p.require_signed = true
   p.author = ['Bryan Taylor', 'Matt McCray', "Michael Kovacs"]
   p.summary = 'Micro CMS - resurrected for Rails 3'
-  p.runtime_dependencies = ['rake >=0.9.2', 'rails >=3.0.9', 'acts_as_versioned', 'acts_as_list-rails3', 'acts_as_tree_rails3']
+  p.runtime_dependencies = ['rake >=0.9.2', 'rails >=3.1.1', 'acts_as_versioned', 'acts_as_list-rails3', 'acts_as_tree_rails3']
   p.development_dependencies = ['term-ansicolor']
   p.retain_gemspec = true
   p.rubygems_version = ">=1.8.4"
