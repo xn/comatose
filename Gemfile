@@ -6,7 +6,7 @@ source 'http://rubygems.org'
 #gem 'haml'
 #gem "oa-oauth", :require => "omniauth/oauth"
 #gem 'oa-openid', :require => 'omniauth/openid'
-gem 'rails', '3.1.1'
+gem 'rails', '~>3.1.1'
 
 gem 'RedCloth'
 gem 'liquid'
