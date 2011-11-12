@@ -6,8 +6,8 @@ namespace :comatose do
     
     desc "If the installation didn't add the images correctly, use this task"
     task :copy_images do
-      sources         = File.join(Comatose.gem_root, 'public/images/comatose', '*.gif')
-      destination_dir = File.join(Rails.root.to_s, 'public/images/comatose')
+      sources         = File.join(Comatose.gem_root, 'app/assets/images/comatose', '*.gif')
+      destination_dir = File.join(Rails.root.to_s, 'app/assets/images/comatose')
       Comatose.logger.debug "[**Comatose**]: sources: #{sources}"
       puts "[**Comatose**]: sources: #{sources}"
       Comatose.logger.debug "[**Comatose**]: destination dir: #{destination_dir}"
