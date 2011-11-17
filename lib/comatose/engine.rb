@@ -5,6 +5,8 @@ module Comatose
 
   class Engine < Rails::Engine
 
+    engine_name "comatose"
+
     initializer 'comatose.add_routes' do |app|
       Rails.logger.debug "Adding Comatose::Routes"
       ActionDispatch::Routing::Mapper.send :include, Comatose::Routes
