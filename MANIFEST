@@ -3,7 +3,7 @@ Gemfile
 Gemfile.lock
 INSTALL
 LICENSE
-Manifest
+MANIFEST
 README
 README.markdown
 Rakefile
@@ -36,7 +36,7 @@ config/environments/production.rb
 config/environments/test.rb
 config/locales/en.yml
 db/seeds.rb
-lib/comatose.rb
+lib/comatose-rubyisbeautiful.rb
 lib/comatose/configuration.rb
 lib/comatose/drop.rb
 lib/comatose/engine.rb
